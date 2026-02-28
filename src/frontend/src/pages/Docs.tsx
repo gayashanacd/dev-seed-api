@@ -1,4 +1,5 @@
 import ApiConsole from "../components/ApiConsole"
+import CodeBlock from "../components/CodeBlock"
 
 const Docs = () => {
     return (
@@ -78,30 +79,22 @@ const Docs = () => {
 
             <div>
                 <p className="font-semibold">Get all users</p>
-                <pre className="bg-gray-100 p-3 rounded">
-                    GET /api/v1/users
-                </pre>
+                <CodeBlock code={`GET /api/v1/users`} />
             </div>
 
             <div>
                 <p className="font-semibold">Pagination</p>
-                <pre className="bg-gray-100 p-3 rounded">
-                    GET /api/v1/users?page=3&limit=10
-                </pre>
+                <CodeBlock code={`GET /api/v1/users?page=3&limit=10`} />
             </div>
 
             <div>
                 <p className="font-semibold">Filter by role</p>
-                <pre className="bg-gray-100 p-3 rounded">
-                    GET/api/v1/users?role=admin
-                </pre>
+                <CodeBlock code={`GET /api/v1/users?role=admin`} />
             </div>
 
             <div>
                 <p className="font-semibold">Search users</p>
-                <pre className="bg-gray-100 p-3 rounded">
-                    GET/api/v1/users?search=john
-                </pre>
+                <CodeBlock code={`GET /api/v1/users?search=john`} />
             </div>
 
             </div>
