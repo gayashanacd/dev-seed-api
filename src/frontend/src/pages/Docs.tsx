@@ -97,6 +97,11 @@ const Docs = () => {
                 <CodeBlock code={`GET /api/v1/users?search=john`} />
             </div>
 
+            <div>
+                <p className="font-semibold">Sort users</p>
+                <CodeBlock code={`GET /api/v1/users?sortBy=firstName&order=asc`} />
+            </div>
+            
             </div>
         </section>
 

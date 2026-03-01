@@ -3,19 +3,22 @@ import { User } from "../interfaces/user.interface"
 import { filterData } from "../../shared/utils/filtering"
 import { searchData } from "../../shared/utils/search"
 import { paginate } from "../../shared/utils/pagination"
+import { sortData } from "../../shared/utils/sorting"
 
 class UsersService {
-    private users: User[] = usersData as User[] 
+    private users: User[] = usersData as User[]
 
     getAll(query: {
         page?: number
         limit?: number
         search?: string
+        sortBy?: keyof User
+        order?: "asc" | "desc"
         [key: string]: any
     }) {
+
         let data = [...this.users]
 
-        // Extract page & limit
         const page = query.page ? Number(query.page) : 1
         const limit = query.limit ? Number(query.limit) : 10
 
@@ -24,12 +27,24 @@ class UsersService {
             data = searchData(data, query.search, ["firstName", "lastName", "email"])
         }
 
-        // Filters (exclude page, limit, search)
+        // Filters
         const filters = { ...query }
         delete filters.page
         delete filters.limit
         delete filters.search
+        delete filters.sortBy
+        delete filters.order
+
         data = filterData(data, filters)
+
+        // Sorting
+        if (query.sortBy) {
+            data = sortData(
+                data,
+                query.sortBy,
+                query.order || "asc"
+            )
+        }
 
         // Pagination
         const result = paginate(data, page, limit)
