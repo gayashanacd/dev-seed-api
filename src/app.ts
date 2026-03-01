@@ -24,12 +24,12 @@ app.get("/health", (_req, res) => {
 app.use("/api/v1", coreModule)
 
 // Serve React SPA
-const buildPath = path.join(__dirname, "frontend/build")
+const buildPath = path.join(__dirname, "../src/frontend/dist")
 
-// Serve static files first
-app.use(express.static(buildPath, { index: "index.html" }))
+// Serve static files
+app.use(express.static(buildPath))
 
-// SPA fallback for any non-API route
+// SPA fallback for non-API routes
 app.use((req, res, next) => {
   if (!req.path.startsWith("/api")) {
     res.sendFile(path.join(buildPath, "index.html"))
