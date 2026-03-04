@@ -1,4 +1,6 @@
 
+import { Link } from "react-router-dom"
+
 const Hero = () => {
     return (
         <section className="bg-gray-50 py-20">
@@ -15,19 +17,19 @@ const Hero = () => {
             </p>
 
             <div className="space-x-4">
-            <a
-                href="#docs"
-                className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
-            >
-                View API Docs
-            </a>
+                <Link
+                    to="/docs/core/users"
+                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
+                    >
+                    View API Docs
+                </Link>
 
-            <a
-                href="#examples"
-                className="border px-6 py-3 rounded hover:bg-gray-100"
-            >
-                Try API
-            </a>
+                <Link
+                    to="/docs/core/users#try-api"
+                    className="border px-6 py-3 rounded hover:bg-gray-100"
+                    >
+                    Try API
+                </Link>
             </div>
 
         </div>
