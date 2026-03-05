@@ -40,18 +40,21 @@ src/
   api/
     core/
       controllers/
+      data/
+      interfaces/
       routes/
       services/
-      data/
     packs/
       ecommerce/
         controllers/
+        data/
+        interfaces/
         routes/
         services/
-        data/
     shared/
       middleware/
       utils/
+    config/
   frontend/      # React SPA project (Vite + TypeScript + Tailwind)
   app.ts         # Express app
   server.ts      # Entry point
