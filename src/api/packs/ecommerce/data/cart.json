@@ -1,0 +1,3 @@
+[
+    { "id": "cart1", "userId": "u2", "items": [{ "productId": "p2", "quantity": 1 }] }
+]

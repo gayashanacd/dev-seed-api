@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "productId": 1,
+        "userId": 101,
+        "rating": 5,
+        "comment": "Excellent headphones!"
+    },
+    {
+        "id": 2,
+        "productId": 2,
+        "userId": 102,
+        "rating": 4,
+        "comment": "Very good phone, but battery could be better."
+    },
+    {
+        "id": 3,
+        "productId": 3,
+        "userId": 103,
+        "rating": 3,
+        "comment": "Comfortable but shrinks after wash."
+    }
+]

@@ -36,7 +36,7 @@ const Docs = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-3">Base URL</h2>
         <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono">
-          /api/v1
+          {selectedDomain?.baseUrl}
         </div>
       </section>
 

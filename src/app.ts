@@ -6,6 +6,7 @@ import path from "path"
 import { notFoundMiddleware } from "./api/shared/middleware/notFound.middleware"
 import { errorMiddleware } from "./api/shared/middleware/error.middleware"
 
+import ecommerceRoutes from "./api/packs/ecommerce/routes/ecommerce.routes"
 import coreModule from "./api/core/core.module"
 
 const app = express()
@@ -22,6 +23,7 @@ app.get("/health", (_req, res) => {
 
 // API Routes
 app.use("/api/v1", coreModule)
+app.use("/api/v1/ecommerce", ecommerceRoutes)
 
 // Serve React SPA
 const buildPath = path.join(__dirname, "../src/frontend/dist")

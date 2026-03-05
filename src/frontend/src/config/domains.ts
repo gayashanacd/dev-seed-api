@@ -16,109 +16,128 @@ export interface EntityConfig {
 
 export interface Domain {
     title: string
+    baseUrl: string
     entities: Record<string, EntityConfig>
+}
+
+// Base simulation fields common to all entities
+const simulationFields: FieldConfig[] = [
+  { name: "page", type: "number", description: "Page number for pagination" },
+  { name: "limit", type: "number", description: "Number of results per page" },
+  { name: "search", type: "string", description: "Search by keyword" },
+  { 
+    name: "filter", 
+    type: "string", 
+    description: "Filter by specific field" 
+  },
+  { 
+    name: "sort", 
+    type: "string", 
+    description: "Sort by a specific field" 
+  },
+  { name: "delay", type: "number (ms)", description: "Simulates network latency" },
+  { name: "error", type: "number (HTTP code)", description: "Force a specific HTTP error" },
+  { name: "errorRate", type: "number (0–100)", description: "Random API failures by percentage" }
+]
+
+// Helper to automatically set default filterBy and sortBy
+function addDefaults(fields: FieldConfig[], defaultFilter?: string, defaultSort?: string) {
+    return fields.map(f => {
+        if (f.name === "filter" && defaultFilter) f.filterBy = defaultFilter
+        if (f.name === "sort" && defaultSort) f.sortBy = defaultSort
+        return f
+    })
 }
 
 export const domainConfig: Record<string, Domain> = {
     core: {
         title: "Core System",
+        baseUrl: "/api/v1",
         entities: {
-        users: {
-            title: "Users",
-            endpoint: "/users",
-            endpointName: "users",
-            description: "Returns a list of users. Supports pagination, filtering, sorting and simulation.",
-            fields: [
-                { name: "page", type: "number", description: "Page number for pagination" },
-                { name: "limit", type: "number", description: "Number of results per page" },
-                { name: "search", type: "string", description: "Search by first name, last name, or email" },
-                { name: "filter", type: "string", description: "Filter users by role (admin or customer)", filterBy: "admin" },
-                { name: "sort", type: "string", description: "Sort users by a specific field", sortBy: "firstName&order=asc" },
-                // Simulation features
-                { 
-                    name: "delay", 
-                    type: "number (ms)", 
-                    description: "Simulates network latency. Delays the response by specified milliseconds." 
-                },
-                { 
-                    name: "error", 
-                    type: "number (HTTP code)", 
-                    description: "Forces the API to return a specific HTTP error code (e.g., 400, 401, 500)." 
-                },
-                { 
-                    name: "errorRate", 
-                    type: "number (0–100)", 
-                    description: "Randomly fails requests based on percentage. Example: 20 means 20% failure rate." 
-                }
-            ]
-        }
+            users: {
+                title: "Users",
+                endpoint: "/users",
+                endpointName: "users",
+                description: "Returns a list of users. Supports pagination, filtering, sorting and simulation.",
+                fields: addDefaults(simulationFields, "role", "firstName&order=asc")
+            }
         }
     },
 
     ecommerce: {
         title: "E-Commerce Model",
+        baseUrl: "/api/v1/ecommerce",
         entities: {
         products: {
             title: "Products",
-            endpoint: "/products",
+            endpoint: "/ecommerce/products",
             endpointName: "products",
             description: "Product catalog with filtering and sorting.",
-            fields: [
-                { name: "page", type: "number", description: "Page number" },
-                { name: "limit", type: "number", description: "Results per page" },
-                { name: "category", type: "string", description: "Filter by category" },
-                { name: "minPrice", type: "number", description: "Minimum price filter" }
-            ]
+            fields: addDefaults([
+            ...simulationFields,
+            { name: "categoryId", type: "string", description: "Filter by category ID" },
+            { name: "minPrice", type: "number", description: "Minimum price filter" },
+            { name: "maxPrice", type: "number", description: "Maximum price filter" }
+            ], "categoryId", "price&order=asc")
         },
 
         categories: {
             title: "Categories",
-            endpoint: "/categories",
+            endpoint: "/ecommerce/categories",
             endpointName: "categories",
             description: "Product category list.",
-            fields: [
-                { name: "search", type: "string", description: "Search category name" }
-            ]
+            fields: addDefaults([
+            ...simulationFields,
+            { name: "name", type: "string", description: "Filter by category name" }
+            ], "name", "name&order=asc")
         },
 
         reviews: {
             title: "Reviews",
-            endpoint: "/reviews",
+            endpoint: "/ecommerce/reviews",
             endpointName: "reviews",
             description: "Product reviews.",
-            fields: [
-                { name: "productId", type: "number", description: "Filter by product" },
-                { name: "rating", type: "number", description: "Filter by rating" }
-            ]
+            fields: addDefaults([
+            ...simulationFields,
+            { name: "productId", type: "string", description: "Filter by product ID" },
+            { name: "userId", type: "string", description: "Filter by user ID" },
+            { name: "rating", type: "number", description: "Filter by rating" }
+            ], "productId", "rating&order=desc")
         },
 
         orders: {
             title: "Orders",
-            endpoint: "/orders",
+            endpoint: "/ecommerce/orders",
             endpointName: "orders",
             description: "User order history.",
-            fields: [
-                { name: "userId", type: "number", description: "Filter by user" },
-                { name: "status", type: "string", description: "Order status" }
-            ]
+            fields: addDefaults([
+            ...simulationFields,
+            { name: "userId", type: "string", description: "Filter by user ID" },
+            { name: "status", type: "string", description: "Order status filter" }
+            ], "status", "createdAt&order=desc")
         },
 
         cart: {
             title: "Cart",
-            endpoint: "/cart",
+            endpoint: "/ecommerce/cart",
             endpointName: "cart",
             description: "User shopping cart.",
-            fields: []
+            fields: addDefaults([
+            ...simulationFields,
+            { name: "userId", type: "string", description: "Filter by user ID" }
+            ], "userId", "id&order=asc")
         },
 
         coupons: {
             title: "Coupons",
-            endpoint: "/coupons",
+            endpoint: "/ecommerce/coupons",
             endpointName: "coupons",
             description: "Discount coupon management.",
-            fields: [
-                { name: "active", type: "boolean", description: "Filter active coupons" }
-            ]
+            fields: addDefaults([
+            ...simulationFields,
+            { name: "active", type: "boolean", description: "Filter active coupons" },
+            { name: "code", type: "string", description: "Filter by coupon code" }
+            ], "code", "id&order=asc")
         }
         }
     }
