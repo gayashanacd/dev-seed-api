@@ -12,7 +12,7 @@ const Card: React.FC<CardProps> = ({ title, description, code }) => {
       <h3 className="font-semibold text-lg mb-2">{title}</h3>
       <p className="mb-2">{description}</p>
       {code && (
-        <pre className="bg-gray-100 p-2 rounded overflow-x-auto text-sm">
+        <pre className="bg-gray-100 p-2 rounded overflow-x-auto text-sm ">
           {code}
         </pre>
       )}

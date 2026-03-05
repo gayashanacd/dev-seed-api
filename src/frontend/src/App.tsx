@@ -11,7 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToHash />
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
         <Header />
 
         <div className="flex-1">

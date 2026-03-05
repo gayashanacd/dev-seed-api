@@ -40,7 +40,7 @@ const DomainPacks = () => {
     ];
 
     return (
-        <section className="bg-gray-50 py-16">
+        <section className="bg-gray-50 py-16 dark:bg-gray-900">
         <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center mb-12">
             Available Domain Packs
@@ -54,8 +54,8 @@ const DomainPacks = () => {
                     pack.comingSoon ? "opacity-70" : ""
                 }`}
                 >
-                <h3 className="font-semibold text-lg mb-2">{pack.title}</h3>
-                <p className="text-gray-600">{pack.description}</p>
+                <h3 className="font-semibold text-lg mb-2 dark:text-gray-100">{pack.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 ">{pack.description}</p>
 
                 {!pack.comingSoon && (
                     <div className="mt-3 text-sm text-blue-600">{pack.endpoint}</div>

@@ -23,7 +23,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ text }) => {
     return (
         <button
             onClick={copyToClipboard}
-            className="text-sm bg-gray-200 px-3 py-1 rounded hover:bg-gray-300"
+            className="text-sm bg-gray-200 px-3 py-1 rounded hover:bg-gray-300 dark:bg-gray-800 dark:border-gray-600"
         >
             {copied ? "Copied!" : "Copy"}
         </button>

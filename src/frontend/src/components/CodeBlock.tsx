@@ -7,7 +7,7 @@ interface CodeBlockProps {
 
 const CodeBlock: React.FC<CodeBlockProps> = ({ code }) => {
     return (
-        <div className="relative bg-gray-100 rounded p-4">
+        <div className="relative bg-gray-100 dark:bg-gray-800 rounded p-4 ">
 
         <div className="absolute top-2 right-2">
             <CopyButton text={code} />
