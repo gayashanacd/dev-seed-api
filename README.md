@@ -4,6 +4,10 @@ A modular, industry-agnostic RESTful API for developers to test frontend apps, w
 
 It currently serves static JSON data and can later support CRUD operations with a database.  
 
+ **Documentation**
+ 
+For full documentation, visit **[devseedapi.com](https://www.devseedapi.com/)**
+
 ---
 
 ## Table of Contents
