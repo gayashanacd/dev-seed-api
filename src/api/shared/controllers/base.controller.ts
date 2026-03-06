@@ -5,7 +5,15 @@ import { delay } from "../utils/delay"
 import { simulateError } from "../utils/errorSimulation"
 import { randomError } from "../utils/randomError"
 
-export const createGetAllController = <T extends Record<string, any>>(service: BaseService<T>) => {
+/**
+ * Generic GET ALL controller with optional `relations` map for `include` support.
+ * @param service - BaseService instance
+ * @param relations - optional map of related entity arrays
+ */
+export const createGetAllController = <T extends Record<string, any>>(
+    service: BaseService<T>,
+    relations: Record<string, any[]> = {}
+) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { delay: delayMs, error, errorRate } = req.query
@@ -13,7 +21,10 @@ export const createGetAllController = <T extends Record<string, any>>(service: B
             simulateError(error ? Number(error) : undefined)
             randomError(errorRate ? Number(errorRate) : undefined)
 
-            const result = service.getAll(req.query)
+            // Pass relations to BaseService.getAll
+            const result = service.getAll(req.query, relations)
+
+            // Return in existing response structure
             res.json({ success: true, data: result.data, meta: result.meta })
         } catch (err) {
             next(err)

@@ -1,4 +1,3 @@
-// src/api/packs/ecommerce/services/ecommerce.services.ts
 import { BaseService } from "../../../shared/services/base.service"
 import productsData from "../data/products.json"
 import categoriesData from "../data/categories.json"

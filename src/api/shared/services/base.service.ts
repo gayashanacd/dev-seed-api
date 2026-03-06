@@ -3,11 +3,17 @@ import { paginate } from "../utils/pagination"
 import { filterData } from "../utils/filtering"
 import { sortData } from "../utils/sorting"
 import { searchData } from "../utils/search"
+import { includeData } from "../utils/include"
 
 export class BaseService<T extends Record<string, any>> {
     constructor(private data: T[]) {}
 
-    getAll(query: Record<string, any>) {
+    // Add this getter
+    public getAllData(): T[] {
+        return [...this.data]
+    }
+
+    getAll(query: Record<string, any>, relations: Record<string, any[]> = {}) {
         let items = [...this.data]
 
         // Search
@@ -22,12 +28,19 @@ export class BaseService<T extends Record<string, any>> {
         delete filters.search
         delete filters.sortBy
         delete filters.order
+        delete filters.include
 
         items = filterData(items, filters)
 
         // Sort
         if (query.sortBy) {
             items = sortData(items, query.sortBy, query.order || "asc")
+        }
+
+        // Include relational data
+        const include = query.include ? query.include.split(",") : []
+        if (include.length > 0) {
+            items = includeData(items, include, relations) as T[]
         }
 
         // Pagination

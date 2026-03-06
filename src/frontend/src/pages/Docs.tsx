@@ -24,12 +24,29 @@ const Docs = () => {
     <main className="container mx-auto p-6 space-y-10 dark:bg-gray-900 dark:text-gray-100">
 
       {/* Intro */}
-      <section>
-        <h1 className="text-3xl font-bold mb-4">API Documentation</h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          DevSeed API provides mock REST endpoints for frontend developers.
-          Use these APIs to build and test applications without needing a real backend.
-        </p>
+      <section className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">API Documentation</h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            DevSeed API provides mock REST endpoints for frontend developers.
+            Use these APIs to build and test applications without needing a real backend.
+          </p>
+        </div>
+
+        {/* Quick navigation link with smooth scroll */}
+        <div className="mt-4 md:mt-0">
+          <button
+            onClick={() => {
+              const target = document.getElementById("try-api")
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" })
+              }
+            }}
+            className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Try API
+          </button>
+        </div>
       </section>
 
       {/* Base URL */}
@@ -117,6 +134,13 @@ const Docs = () => {
             <div>
               <p className="font-semibold">Sort {config.endpointName}</p>
               <CodeBlock code={`GET ${config.endpoint}?sortBy=field&order=asc`} />
+            </div>
+          )}
+
+          {config.fields.some(f => f.name === "include") && (
+            <div>
+              <p className="font-semibold">Include Related Data</p>
+              <CodeBlock code={`GET ${config.endpoint}?include=category,reviews`} />
             </div>
           )}
 

@@ -1,4 +1,3 @@
-// src/api/packs/ecommerce/controllers/ecommerce.controllers.ts
 import { createGetAllController } from "../../../shared/controllers/base.controller"
 import {
     productsService,
@@ -9,7 +8,13 @@ import {
     couponsService
 } from "../services/ecommerce.services"
 
-export const getProducts = createGetAllController(productsService)
+// Relations map: pass raw data, not paginated
+const productRelations = {
+    category: categoriesService.getAllData(),
+    reviews: reviewsService.getAllData()
+}
+
+export const getProducts = createGetAllController(productsService, productRelations)
 export const getCategories = createGetAllController(categoriesService)
 export const getReviews = createGetAllController(reviewsService)
 export const getOrders = createGetAllController(ordersService)

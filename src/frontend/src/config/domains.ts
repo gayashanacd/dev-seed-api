@@ -75,6 +75,7 @@ export const domainConfig: Record<string, Domain> = {
             description: "Product catalog with filtering and sorting.",
             fields: addDefaults([
             ...simulationFields,
+            { name: "include", type: "string", description: "Include related data" },
             { name: "categoryId", type: "string", description: "Filter by category ID" },
             { name: "minPrice", type: "number", description: "Minimum price filter" },
             { name: "maxPrice", type: "number", description: "Maximum price filter" }
