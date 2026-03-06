@@ -10,7 +10,7 @@ const DomainPacks = () => {
             title: "E-Commerce",
             description:
                 "Products, categories, and inventory datasets for building e-commerce applications.",
-            endpoint: "/api/v1/products",
+            endpoint: "/api/v1/ecommerce",
             comingSoon: false,
         },
         {
