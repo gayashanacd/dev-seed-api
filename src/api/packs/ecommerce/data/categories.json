@@ -1,4 +1,14 @@
 [
     { "id": "c1", "name": "Computer Accessories", "createdAt": "2026-03-01T09:00:00Z" },
-    { "id": "c2", "name": "Clothing", "createdAt": "2026-03-01T09:30:00Z" }
+    { "id": "c2", "name": "Clothing", "createdAt": "2026-03-01T09:10:00Z" },
+    { "id": "c3", "name": "Smartphones", "createdAt": "2026-03-01T09:20:00Z" },
+    { "id": "c4", "name": "Laptops", "createdAt": "2026-03-01T09:30:00Z" },
+    { "id": "c5", "name": "Headphones", "createdAt": "2026-03-01T09:40:00Z" },
+    { "id": "c6", "name": "Gaming", "createdAt": "2026-03-01T09:50:00Z" },
+    { "id": "c7", "name": "Home Office", "createdAt": "2026-03-01T10:00:00Z" },
+    { "id": "c8", "name": "Wearables", "createdAt": "2026-03-01T10:10:00Z" },
+    { "id": "c9", "name": "Photography", "createdAt": "2026-03-01T10:20:00Z" },
+    { "id": "c10", "name": "Networking", "createdAt": "2026-03-01T10:30:00Z" },
+    { "id": "c11", "name": "Storage", "createdAt": "2026-03-01T10:40:00Z" },
+    { "id": "c12", "name": "Accessories", "createdAt": "2026-03-01T10:50:00Z" }
 ]

@@ -1,3 +1,14 @@
 [
-    { "id": "cp1", "code": "DISCOUNT10", "discount": 10, "validTill": "2026-12-31T23:59:59Z" }
+    { "id": "cp1", "code": "WELCOME10", "discount": 10, "validTill": "2026-12-31T23:59:59Z" },
+    { "id": "cp2", "code": "SPRING15", "discount": 15, "validTill": "2026-06-30T23:59:59Z" },
+    { "id": "cp3", "code": "SUMMER20", "discount": 20, "validTill": "2026-09-01T23:59:59Z" },
+    { "id": "cp4", "code": "VIP25", "discount": 25, "validTill": "2026-12-31T23:59:59Z" },
+    { "id": "cp5", "code": "BLACKFRIDAY30", "discount": 30, "validTill": "2026-11-30T23:59:59Z" },
+    { "id": "cp6", "code": "NEWYEAR15", "discount": 15, "validTill": "2027-01-10T23:59:59Z" },
+    { "id": "cp7", "code": "FLASH5", "discount": 5, "validTill": "2026-04-01T23:59:59Z" },
+    { "id": "cp8", "code": "TECH10", "discount": 10, "validTill": "2026-08-01T23:59:59Z" },
+    { "id": "cp9", "code": "GAMER15", "discount": 15, "validTill": "2026-10-01T23:59:59Z" },
+    { "id": "cp10", "code": "HOME20", "discount": 20, "validTill": "2026-07-01T23:59:59Z" },
+    { "id": "cp11", "code": "OFFICE10", "discount": 10, "validTill": "2026-12-01T23:59:59Z" },
+    { "id": "cp12", "code": "CLEARANCE35", "discount": 35, "validTill": "2026-05-01T23:59:59Z" }
 ]

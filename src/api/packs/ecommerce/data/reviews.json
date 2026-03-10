@@ -1,5 +1,17 @@
 [
     { "id": 101, "productId": "p1", "userId": "u1", "rating": 5, "comment": "Excellent mouse!" },
-    { "id": 102, "productId": "p2", "userId": "u2", "rating": 4, "comment": "Solid keyboard." },
-    { "id": 103, "productId": "p3", "userId": "u3", "rating": 3, "comment": "Comfortable T-Shirt." }
+    { "id": 102, "productId": "p2", "userId": "u2", "rating": 4, "comment": "Great keyboard for typing." },
+    { "id": 103, "productId": "p3", "userId": "u3", "rating": 4, "comment": "Very useful hub." },
+    { "id": 104, "productId": "p4", "userId": "u4", "rating": 5, "comment": "Amazing sound quality." },
+    { "id": 105, "productId": "p5", "userId": "u5", "rating": 4, "comment": "Good value speaker." },
+    { "id": 106, "productId": "p6", "userId": "u6", "rating": 5, "comment": "Fantastic phone!" },
+    { "id": 107, "productId": "p7", "userId": "u7", "rating": 5, "comment": "Super fast laptop." },
+    { "id": 108, "productId": "p8", "userId": "u8", "rating": 4, "comment": "Noise cancelling works well." },
+    { "id": 109, "productId": "p9", "userId": "u2", "rating": 3, "comment": "Decent webcam." },
+    { "id": 110, "productId": "p10", "userId": "u3", "rating": 5, "comment": "Extremely fast storage." },
+    { "id": 111, "productId": "p12", "userId": "u4", "rating": 4, "comment": "Nice gaming pad." },
+    { "id": 112, "productId": "p13", "userId": "u5", "rating": 4, "comment": "Love the smartwatch." },
+    { "id": 113, "productId": "p14", "userId": "u6", "rating": 5, "comment": "Excellent camera quality." },
+    { "id": 114, "productId": "p16", "userId": "u7", "rating": 4, "comment": "Stable router." },
+    { "id": 115, "productId": "p20", "userId": "u8", "rating": 5, "comment": "Perfect standing desk." }
 ]

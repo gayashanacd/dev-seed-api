@@ -1,3 +1,14 @@
 [
-    { "id": "cart1", "userId": "u2", "items": [{ "productId": "p2", "quantity": 1 }] }
+    { "id": "cart1", "userId": "u1", "items": [{ "productId": "p1", "quantity": 1 }] },
+    { "id": "cart2", "userId": "u2", "items": [{ "productId": "p2", "quantity": 1 }] },
+    { "id": "cart3", "userId": "u3", "items": [{ "productId": "p3", "quantity": 2 }] },
+    { "id": "cart4", "userId": "u4", "items": [{ "productId": "p4", "quantity": 1 }] },
+    { "id": "cart5", "userId": "u5", "items": [{ "productId": "p5", "quantity": 1 }] },
+    { "id": "cart6", "userId": "u6", "items": [{ "productId": "p6", "quantity": 1 }] },
+    { "id": "cart7", "userId": "u7", "items": [{ "productId": "p7", "quantity": 1 }] },
+    { "id": "cart8", "userId": "u8", "items": [{ "productId": "p8", "quantity": 1 }] },
+    { "id": "cart9", "userId": "u9", "items": [{ "productId": "p9", "quantity": 1 }] },
+    { "id": "cart10", "userId": "u10", "items": [{ "productId": "p10", "quantity": 1 }] },
+    { "id": "cart11", "userId": "u2", "items": [{ "productId": "p12", "quantity": 2 }] },
+    { "id": "cart12", "userId": "u3", "items": [{ "productId": "p14", "quantity": 1 }] }
 ]

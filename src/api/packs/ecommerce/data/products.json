@@ -1,4 +1,22 @@
 [
-    { "id": "p1", "name": "Wireless Mouse", "price": 29.99, "categoryId": "c1", "createdAt": "2026-03-02T12:00:00Z" },
-    { "id": "p2", "name": "Mechanical Keyboard", "price": 79.99, "categoryId": "c1", "createdAt": "2026-03-02T13:00:00Z" }
+    { "id": "p1", "name": "Wireless Mouse", "price": 29.99, "categoryId": "c1", "createdAt": "2026-03-02T10:00:00Z" },
+    { "id": "p2", "name": "Mechanical Keyboard", "price": 79.99, "categoryId": "c1", "createdAt": "2026-03-02T10:10:00Z" },
+    { "id": "p3", "name": "USB-C Hub", "price": 39.99, "categoryId": "c12", "createdAt": "2026-03-02T10:20:00Z" },
+    { "id": "p4", "name": "Gaming Headset", "price": 69.99, "categoryId": "c6", "createdAt": "2026-03-02T10:30:00Z" },
+    { "id": "p5", "name": "Bluetooth Speaker", "price": 49.99, "categoryId": "c12", "createdAt": "2026-03-02T10:40:00Z" },
+    { "id": "p6", "name": "Smartphone X", "price": 899.99, "categoryId": "c3", "createdAt": "2026-03-02T10:50:00Z" },
+    { "id": "p7", "name": "Laptop Pro 14", "price": 1499.99, "categoryId": "c4", "createdAt": "2026-03-02T11:00:00Z" },
+    { "id": "p8", "name": "Noise Cancelling Headphones", "price": 199.99, "categoryId": "c5", "createdAt": "2026-03-02T11:10:00Z" },
+    { "id": "p9", "name": "Webcam HD", "price": 59.99, "categoryId": "c7", "createdAt": "2026-03-02T11:20:00Z" },
+    { "id": "p10", "name": "External SSD 1TB", "price": 129.99, "categoryId": "c11", "createdAt": "2026-03-02T11:30:00Z" },
+    { "id": "p11", "name": "Wireless Charger", "price": 24.99, "categoryId": "c12", "createdAt": "2026-03-02T11:40:00Z" },
+    { "id": "p12", "name": "Gaming Mouse Pad", "price": 19.99, "categoryId": "c6", "createdAt": "2026-03-02T11:50:00Z" },
+    { "id": "p13", "name": "Smartwatch Series 5", "price": 299.99, "categoryId": "c8", "createdAt": "2026-03-02T12:00:00Z" },
+    { "id": "p14", "name": "DSLR Camera", "price": 899.99, "categoryId": "c9", "createdAt": "2026-03-02T12:10:00Z" },
+    { "id": "p15", "name": "Tripod Stand", "price": 39.99, "categoryId": "c9", "createdAt": "2026-03-02T12:20:00Z" },
+    { "id": "p16", "name": "WiFi Router AX3000", "price": 119.99, "categoryId": "c10", "createdAt": "2026-03-02T12:30:00Z" },
+    { "id": "p17", "name": "Ethernet Cable 5m", "price": 9.99, "categoryId": "c10", "createdAt": "2026-03-02T12:40:00Z" },
+    { "id": "p18", "name": "Portable Power Bank", "price": 34.99, "categoryId": "c12", "createdAt": "2026-03-02T12:50:00Z" },
+    { "id": "p19", "name": "Office Chair Ergonomic", "price": 249.99, "categoryId": "c7", "createdAt": "2026-03-02T13:00:00Z" },
+    { "id": "p20", "name": "Standing Desk", "price": 499.99, "categoryId": "c7", "createdAt": "2026-03-02T13:10:00Z" }
 ]

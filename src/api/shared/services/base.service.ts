@@ -29,6 +29,9 @@ export class BaseService<T extends Record<string, any>> {
         delete filters.sortBy
         delete filters.order
         delete filters.include
+        delete filters.delay
+        delete filters.error
+        delete filters.errorRate
 
         items = filterData(items, filters)
 
