@@ -17,7 +17,8 @@ const DomainPacks = () => {
             title: "Fake SaaS / Startup Data",
             description:
                 "Simulated SaaS accounts, subscriptions, and startup data for prototyping dashboards.",
-            comingSoon: true,
+            endpoint: "/api/v1/strartup",
+            comingSoon: false,
         },
         {
             title: "Social Media Mock",

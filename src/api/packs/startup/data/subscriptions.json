@@ -1,0 +1,20 @@
+[
+    {
+        "id": "sub1",
+        "organizationId": "org1",
+        "plan": "pro",
+        "status": "active",
+        "billingCycle": "monthly",
+        "price": 49,
+        "startedAt": "2026-01-01T00:00:00Z"
+    },
+    {
+        "id": "sub2",
+        "organizationId": "org2",
+        "plan": "starter",
+        "status": "active",
+        "billingCycle": "monthly",
+        "price": 19,
+        "startedAt": "2026-01-05T00:00:00Z"
+    }
+]

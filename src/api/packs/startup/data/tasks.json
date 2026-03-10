@@ -1,0 +1,29 @@
+[
+    {
+        "id": "task1",
+        "projectId": "proj1",
+        "assigneeId": "u2",
+        "title": "Create wireframes",
+        "status": "done",
+        "priority": "high",
+        "dueDate": "2026-03-10T00:00:00Z"
+    },
+    {
+        "id": "task2",
+        "projectId": "proj1",
+        "assigneeId": "u3",
+        "title": "Develop homepage layout",
+        "status": "in_progress",
+        "priority": "medium",
+        "dueDate": "2026-03-12T00:00:00Z"
+    },
+    {
+        "id": "task3",
+        "projectId": "proj2",
+        "assigneeId": "u4",
+        "title": "Setup authentication flow",
+        "status": "todo",
+        "priority": "high",
+        "dueDate": "2026-03-15T00:00:00Z"
+    }
+]

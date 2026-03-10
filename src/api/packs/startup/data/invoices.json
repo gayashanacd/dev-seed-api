@@ -1,0 +1,20 @@
+[
+    {
+        "id": "inv1",
+        "organizationId": "org1",
+        "subscriptionId": "sub1",
+        "amount": 49,
+        "status": "paid",
+        "issuedAt": "2026-02-01T00:00:00Z",
+        "dueAt": "2026-02-05T00:00:00Z"
+    },
+    {
+        "id": "inv2",
+        "organizationId": "org2",
+        "subscriptionId": "sub2",
+        "amount": 19,
+        "status": "paid",
+        "issuedAt": "2026-02-05T00:00:00Z",
+        "dueAt": "2026-02-10T00:00:00Z"
+    }
+]

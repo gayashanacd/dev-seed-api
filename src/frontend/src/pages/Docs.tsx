@@ -140,7 +140,7 @@ const Docs = () => {
           {config.fields.some(f => f.name === "include") && (
             <div>
               <p className="font-semibold">Include Related Data</p>
-              <CodeBlock code={`GET ${config.endpoint}?include=category,reviews`} />
+              <CodeBlock code={`GET ${config.endpoint}?include=entity1,entity1`} />
             </div>
           )}
 

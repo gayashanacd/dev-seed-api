@@ -1,0 +1,12 @@
+[
+    { "id": "org1", "name": "DevSeed Labs", "ownerId": "u1", "plan": "pro", "createdAt": "2026-01-02T10:00:00Z" },
+    { "id": "org2", "name": "PixelCraft Studio", "ownerId": "u2", "plan": "starter", "createdAt": "2026-01-05T09:00:00Z" },
+    { "id": "org3", "name": "GrowthOps", "ownerId": "u3", "plan": "business", "createdAt": "2026-01-10T08:30:00Z" },
+    { "id": "org4", "name": "NextWave Apps", "ownerId": "u4", "plan": "pro", "createdAt": "2026-01-12T11:45:00Z" },
+    { "id": "org5", "name": "BlueOcean Tech", "ownerId": "u5", "plan": "starter", "createdAt": "2026-01-15T10:20:00Z" },
+    { "id": "org6", "name": "CloudForge", "ownerId": "u6", "plan": "business", "createdAt": "2026-01-18T14:00:00Z" },
+    { "id": "org7", "name": "DataNest", "ownerId": "u7", "plan": "pro", "createdAt": "2026-01-21T12:30:00Z" },
+    { "id": "org8", "name": "NovaStack", "ownerId": "u8", "plan": "starter", "createdAt": "2026-01-24T15:10:00Z" },
+    { "id": "org9", "name": "BrightLayer", "ownerId": "u9", "plan": "business", "createdAt": "2026-01-27T16:00:00Z" },
+    { "id": "org10", "name": "OrbitSoft", "ownerId": "u10", "plan": "pro", "createdAt": "2026-02-01T09:50:00Z" }
+]

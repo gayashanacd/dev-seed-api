@@ -22,22 +22,22 @@ export interface Domain {
 
 // Base simulation fields common to all entities
 const simulationFields: FieldConfig[] = [
-  { name: "page", type: "number", description: "Page number for pagination" },
-  { name: "limit", type: "number", description: "Number of results per page" },
-  { name: "search", type: "string", description: "Search by keyword" },
-  { 
-    name: "filter", 
-    type: "string", 
-    description: "Filter by specific field" 
-  },
-  { 
-    name: "sort", 
-    type: "string", 
-    description: "Sort by a specific field" 
-  },
-  { name: "delay", type: "number (ms)", description: "Simulates network latency" },
-  { name: "error", type: "number (HTTP code)", description: "Force a specific HTTP error" },
-  { name: "errorRate", type: "number (0–100)", description: "Random API failures by percentage" }
+    { name: "page", type: "number", description: "Page number for pagination" },
+    { name: "limit", type: "number", description: "Number of results per page" },
+    { name: "search", type: "string", description: "Search by keyword" },
+    { 
+        name: "filter", 
+        type: "string", 
+        description: "Filter by specific field" 
+    },
+    { 
+        name: "sort", 
+        type: "string", 
+        description: "Sort by a specific field" 
+    },
+    { name: "delay", type: "number (ms)", description: "Simulates network latency" },
+    { name: "error", type: "number (HTTP code)", description: "Force a specific HTTP error" },
+    { name: "errorRate", type: "number (0–100)", description: "Random API failures by percentage" }
 ]
 
 // Helper to automatically set default filterBy and sortBy
@@ -140,6 +140,73 @@ export const domainConfig: Record<string, Domain> = {
             { name: "code", type: "string", description: "Filter by coupon code" }
             ], "code", "id&order=asc")
         }
+        }
+    },
+
+    startup: {
+        title: "Startup / SaaS Model",
+        baseUrl: "/api/v1/startup",
+        entities: {
+            organizations: {
+                title: "Organizations",
+                endpoint: "/startup/organizations",
+                endpointName: "organizations",
+                description: "Organization details with owners, projects, subscriptions, and invoices.",
+                fields: addDefaults([
+                    ...simulationFields,
+                    { name: "include", type: "string", description: "Include related data: owner, projects, subscriptions, invoices" }
+                ], "name", "createdAt&order=asc")
+            },
+            projects: {
+                title: "Projects",
+                endpoint: "/startup/projects",
+                endpointName: "projects",
+                description: "Projects under organizations with tasks and owners.",
+                fields: addDefaults([
+                    ...simulationFields,
+                    { name: "include", type: "string", description: "Include related data: organization, owner, tasks" }
+                ], "organizationId", "createdAt&order=desc")
+            },
+            tasks: {
+                title: "Tasks",
+                endpoint: "/startup/tasks",
+                endpointName: "tasks",
+                description: "Project tasks with assignees and status.",
+                fields: addDefaults([
+                    ...simulationFields,
+                    { name: "include", type: "string", description: "Include related data: project, assignee" }
+                ], "projectId", "dueDate&order=asc")
+            },
+            subscriptions: {
+                title: "Subscriptions",
+                endpoint: "/startup/subscriptions",
+                endpointName: "subscriptions",
+                description: "Organization subscriptions with related invoices.",
+                fields: addDefaults([
+                    ...simulationFields,
+                    { name: "include", type: "string", description: "Include related data: organization, invoices" }
+                ], "organizationId", "createdAt&order=desc")
+            },
+            invoices: {
+                title: "Invoices",
+                endpoint: "/startup/invoices",
+                endpointName: "invoices",
+                description: "Invoices linked to subscriptions and organizations.",
+                fields: addDefaults([
+                    ...simulationFields,
+                    { name: "include", type: "string", description: "Include related data: organization, subscription" }
+                ], "subscriptionId", "createdAt&order=desc")
+            },
+            notifications: {
+                title: "Notifications",
+                endpoint: "/startup/notifications",
+                endpointName: "notifications",
+                description: "User notifications.",
+                fields: addDefaults([
+                    ...simulationFields,
+                    { name: "include", type: "string", description: "Include related data: user" }
+                ], "userId", "createdAt&order=desc")
+            }
         }
     }
 }

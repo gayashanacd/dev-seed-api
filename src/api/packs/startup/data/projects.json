@@ -1,0 +1,12 @@
+[
+    { "id": "proj1", "name": "Website Redesign", "organizationId": "org1", "ownerId": "u1", "status": "active", "createdAt": "2026-02-01T09:00:00Z" },
+    { "id": "proj2", "name": "Mobile App", "organizationId": "org1", "ownerId": "u2", "status": "active", "createdAt": "2026-02-02T10:00:00Z" },
+    { "id": "proj3", "name": "Analytics Dashboard", "organizationId": "org2", "ownerId": "u2", "status": "planning", "createdAt": "2026-02-03T11:00:00Z" },
+    { "id": "proj4", "name": "Marketing Automation", "organizationId": "org3", "ownerId": "u3", "status": "active", "createdAt": "2026-02-04T12:00:00Z" },
+    { "id": "proj5", "name": "Customer Portal", "organizationId": "org3", "ownerId": "u4", "status": "completed", "createdAt": "2026-02-05T13:00:00Z" },
+    { "id": "proj6", "name": "Internal CRM", "organizationId": "org4", "ownerId": "u4", "status": "active", "createdAt": "2026-02-06T14:00:00Z" },
+    { "id": "proj7", "name": "AI Chatbot", "organizationId": "org5", "ownerId": "u5", "status": "planning", "createdAt": "2026-02-07T15:00:00Z" },
+    { "id": "proj8", "name": "Data Pipeline", "organizationId": "org6", "ownerId": "u6", "status": "active", "createdAt": "2026-02-08T16:00:00Z" },
+    { "id": "proj9", "name": "Design System", "organizationId": "org7", "ownerId": "u7", "status": "active", "createdAt": "2026-02-09T17:00:00Z" },
+    { "id": "proj10", "name": "Landing Page Builder", "organizationId": "org8", "ownerId": "u8", "status": "planning", "createdAt": "2026-02-10T18:00:00Z" }
+]

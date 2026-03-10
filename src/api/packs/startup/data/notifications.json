@@ -1,0 +1,18 @@
+[
+    {
+        "id": "n1",
+        "userId": "u1",
+        "type": "task_assigned",
+        "message": "You were assigned a new task",
+        "read": false,
+        "createdAt": "2026-03-01T09:00:00Z"
+    },
+    {
+        "id": "n2",
+        "userId": "u2",
+        "type": "invoice_paid",
+        "message": "Invoice inv1 was successfully paid",
+        "read": true,
+        "createdAt": "2026-03-02T10:00:00Z"
+    }
+]
