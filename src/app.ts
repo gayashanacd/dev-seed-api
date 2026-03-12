@@ -6,9 +6,8 @@ import path from "path"
 import { notFoundMiddleware } from "./api/shared/middleware/notFound.middleware"
 import { errorMiddleware } from "./api/shared/middleware/error.middleware"
 
-import ecommerceRoutes from "./api/packs/ecommerce/routes/ecommerce.routes"
-import startupRoute from "./api/packs/startup/routes/startup.routes"
-import coreModule from "./api/core/core.module"
+import apiModule from "./api/api.module"
+import { apiLimiter } from "./api/shared/middleware/rateLimit.middleware"
 
 const app = express()
 
@@ -17,15 +16,13 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// Apply rate limiting ONLY to API
+app.use("/api/v1", apiLimiter, apiModule)
+
 // Health check route
 app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok" })
 })
-
-// API Routes
-app.use("/api/v1", coreModule)
-app.use("/api/v1/ecommerce", ecommerceRoutes)
-app.use("/api/v1/startup", startupRoute)
 
 // Serve React SPA
 const buildPath = path.join(__dirname, "../src/frontend/dist")
