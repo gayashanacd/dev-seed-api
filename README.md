@@ -52,11 +52,25 @@ Example Response:
 ```json
 [
   {
-    "id": "u1",
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "john@example.com",
-    "role": "customer"
+      "id": "u1",
+      "name": {
+        "first": "John",
+        "last": "Doe"
+      },
+      "gender": "male",
+      "email": "john@example.com",
+      "role": "customer",
+      "createdAt": "2026-01-01T10:00:00Z",
+      "address": {
+        "street": "742 Evergreen Terrace",
+        "city": "Springfield",
+        "state": "IL",
+        "country": "US",
+        "postcode": "62704"
+      },
+      "profile": {
+        "avatar": "https://randomuser.me/api/portraits/men/1.jpg"
+      }
   }
 ]
 ```
