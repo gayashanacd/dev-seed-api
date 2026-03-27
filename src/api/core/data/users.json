@@ -1,27 +1,402 @@
 [
-    { "id": "u1", "firstName": "John", "lastName": "Doe", "email": "john@example.com", "role": "customer", "createdAt": "2026-01-01T10:00:00Z" },
-    { "id": "u2", "firstName": "Jane", "lastName": "Smith", "email": "jane@example.com", "role": "admin", "createdAt": "2026-01-02T10:00:00Z" },
-    { "id": "u3", "firstName": "Alice", "lastName": "Johnson", "email": "alice@example.com", "role": "customer", "createdAt": "2026-01-03T10:00:00Z" },
-    { "id": "u4", "firstName": "Bob", "lastName": "Brown", "email": "bob@example.com", "role": "customer", "createdAt": "2026-01-04T10:00:00Z" },
-    { "id": "u5", "firstName": "Charlie", "lastName": "Davis", "email": "charlie@example.com", "role": "admin", "createdAt": "2026-01-05T10:00:00Z" },
-    { "id": "u6", "firstName": "Diana", "lastName": "Miller", "email": "diana@example.com", "role": "customer", "createdAt": "2026-01-06T10:00:00Z" },
-    { "id": "u7", "firstName": "Ethan", "lastName": "Wilson", "email": "ethan@example.com", "role": "customer", "createdAt": "2026-01-07T10:00:00Z" },
-    { "id": "u8", "firstName": "Fiona", "lastName": "Moore", "email": "fiona@example.com", "role": "admin", "createdAt": "2026-01-08T10:00:00Z" },
-    { "id": "u9", "firstName": "George", "lastName": "Taylor", "email": "george@example.com", "role": "customer", "createdAt": "2026-01-09T10:00:00Z" },
-    { "id": "u10", "firstName": "Hannah", "lastName": "Anderson", "email": "hannah@example.com", "role": "customer", "createdAt": "2026-01-10T10:00:00Z" },
-    { "id": "u11", "firstName": "Ian", "lastName": "Thomas", "email": "ian@example.com", "role": "admin", "createdAt": "2026-01-11T10:00:00Z" },
-    { "id": "u12", "firstName": "Julia", "lastName": "Jackson", "email": "julia@example.com", "role": "customer", "createdAt": "2026-01-12T10:00:00Z" },
-    { "id": "u13", "firstName": "Kevin", "lastName": "White", "email": "kevin@example.com", "role": "customer", "createdAt": "2026-01-13T10:00:00Z" },
-    { "id": "u14", "firstName": "Laura", "lastName": "Harris", "email": "laura@example.com", "role": "admin", "createdAt": "2026-01-14T10:00:00Z" },
-    { "id": "u15", "firstName": "Michael", "lastName": "Martin", "email": "michael@example.com", "role": "customer", "createdAt": "2026-01-15T10:00:00Z" },
-    { "id": "u16", "firstName": "Nina", "lastName": "Lee", "email": "nina@example.com", "role": "customer", "createdAt": "2026-01-16T10:00:00Z" },
-    { "id": "u17", "firstName": "Oliver", "lastName": "Perez", "email": "oliver@example.com", "role": "admin", "createdAt": "2026-01-17T10:00:00Z" },
-    { "id": "u18", "firstName": "Paula", "lastName": "Young", "email": "paula@example.com", "role": "customer", "createdAt": "2026-01-18T10:00:00Z" },
-    { "id": "u19", "firstName": "Quentin", "lastName": "King", "email": "quentin@example.com", "role": "customer", "createdAt": "2026-01-19T10:00:00Z" },
-    { "id": "u20", "firstName": "Rachel", "lastName": "Scott", "email": "rachel@example.com", "role": "admin", "createdAt": "2026-01-20T10:00:00Z" },
-    { "id": "u21", "firstName": "Steven", "lastName": "Green", "email": "steven@example.com", "role": "customer", "createdAt": "2026-01-21T10:00:00Z" },
-    { "id": "u22", "firstName": "Tina", "lastName": "Baker", "email": "tina@example.com", "role": "customer", "createdAt": "2026-01-22T10:00:00Z" },
-    { "id": "u23", "firstName": "Ulysses", "lastName": "Adams", "email": "ulysses@example.com", "role": "admin", "createdAt": "2026-01-23T10:00:00Z" },
-    { "id": "u24", "firstName": "Victoria", "lastName": "Nelson", "email": "victoria@example.com", "role": "customer", "createdAt": "2026-01-24T10:00:00Z" },
-    { "id": "u25", "firstName": "William", "lastName": "Carter", "email": "william@example.com", "role": "customer", "createdAt": "2026-01-25T10:00:00Z" }
+  {
+    "id": "u1",
+    "name": { "first": "John", "last": "Doe" },
+    "gender": "male",
+    "email": "john@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-01T10:00:00Z",
+    "address": {
+      "street": "742 Evergreen Terrace",
+      "city": "Springfield",
+      "state": "IL",
+      "country": "US",
+      "postcode": "62704"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/1.jpg" }
+  },
+  {
+    "id": "u2",
+    "name": { "first": "Jane", "last": "Smith" },
+    "gender": "female",
+    "email": "jane@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-02T10:00:00Z",
+    "address": {
+      "street": "123 Maple Ave",
+      "city": "Denver",
+      "state": "CO",
+      "country": "US",
+      "postcode": "80203"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/2.jpg" }
+  },
+  {
+    "id": "u3",
+    "name": { "first": "Alice", "last": "Johnson" },
+    "gender": "female",
+    "email": "alice@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-03T10:00:00Z",
+    "address": {
+      "street": "89 Oak Street",
+      "city": "Austin",
+      "state": "TX",
+      "country": "US",
+      "postcode": "73301"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/3.jpg" }
+  },
+  {
+    "id": "u4",
+    "name": { "first": "Bob", "last": "Brown" },
+    "gender": "male",
+    "email": "bob@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-04T10:00:00Z",
+    "address": {
+      "street": "456 Pine Road",
+      "city": "Seattle",
+      "state": "WA",
+      "country": "US",
+      "postcode": "98101"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/4.jpg" }
+  },
+  {
+    "id": "u5",
+    "name": { "first": "Charlie", "last": "Davis" },
+    "gender": "male",
+    "email": "charlie@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-05T10:00:00Z",
+    "address": {
+      "street": "77 Sunset Blvd",
+      "city": "Los Angeles",
+      "state": "CA",
+      "country": "US",
+      "postcode": "90001"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/5.jpg" }
+  },
+  {
+    "id": "u6",
+    "name": { "first": "Diana", "last": "Miller" },
+    "gender": "female",
+    "email": "diana@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-06T10:00:00Z",
+    "address": {
+      "street": "12 Birch Lane",
+      "city": "Chicago",
+      "state": "IL",
+      "country": "US",
+      "postcode": "60601"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/6.jpg" }
+  },
+  {
+    "id": "u7",
+    "name": { "first": "Ethan", "last": "Wilson" },
+    "gender": "male",
+    "email": "ethan@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-07T10:00:00Z",
+    "address": {
+      "street": "98 Cedar Ave",
+      "city": "Phoenix",
+      "state": "AZ",
+      "country": "US",
+      "postcode": "85001"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/7.jpg" }
+  },
+  {
+    "id": "u8",
+    "name": { "first": "Fiona", "last": "Moore" },
+    "gender": "female",
+    "email": "fiona@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-08T10:00:00Z",
+    "address": {
+      "street": "221 King St",
+      "city": "Toronto",
+      "state": "ON",
+      "country": "CA",
+      "postcode": "M5V"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/8.jpg" }
+  },
+  {
+    "id": "u9",
+    "name": { "first": "George", "last": "Taylor" },
+    "gender": "male",
+    "email": "george@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-09T10:00:00Z",
+    "address": {
+      "street": "10 Downing St",
+      "city": "London",
+      "state": "LDN",
+      "country": "UK",
+      "postcode": "SW1A"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/9.jpg" }
+  },
+  {
+    "id": "u10",
+    "name": { "first": "Hannah", "last": "Anderson" },
+    "gender": "female",
+    "email": "hannah@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-10T10:00:00Z",
+    "address": {
+      "street": "55 Queen St",
+      "city": "Vancouver",
+      "state": "BC",
+      "country": "CA",
+      "postcode": "V5K"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/10.jpg" }
+  },
+  {
+    "id": "u11",
+    "name": { "first": "Ian", "last": "Thomas" },
+    "gender": "male",
+    "email": "ian@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-11T10:00:00Z",
+    "address": {
+      "street": "9 King St",
+      "city": "Boston",
+      "state": "MA",
+      "country": "US",
+      "postcode": "02108"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/11.jpg" }
+  },
+  {
+    "id": "u12",
+    "name": { "first": "Julia", "last": "Jackson" },
+    "gender": "female",
+    "email": "julia@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-12T10:00:00Z",
+    "address": {
+      "street": "33 Lake View",
+      "city": "Orlando",
+      "state": "FL",
+      "country": "US",
+      "postcode": "32801"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/12.jpg" }
+  },
+  {
+    "id": "u13",
+    "name": { "first": "Kevin", "last": "White" },
+    "gender": "male",
+    "email": "kevin@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-13T10:00:00Z",
+    "address": {
+      "street": "72 Hill St",
+      "city": "Dallas",
+      "state": "TX",
+      "country": "US",
+      "postcode": "75201"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/13.jpg" }
+  },
+  {
+    "id": "u14",
+    "name": { "first": "Laura", "last": "Harris" },
+    "gender": "female",
+    "email": "laura@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-14T10:00:00Z",
+    "address": {
+      "street": "14 Bay St",
+      "city": "Toronto",
+      "state": "ON",
+      "country": "CA",
+      "postcode": "M5J"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/14.jpg" }
+  },
+  {
+    "id": "u15",
+    "name": { "first": "Michael", "last": "Martin" },
+    "gender": "male",
+    "email": "michael@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-15T10:00:00Z",
+    "address": {
+      "street": "200 Elm St",
+      "city": "San Diego",
+      "state": "CA",
+      "country": "US",
+      "postcode": "92101"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/15.jpg" }
+  },
+  {
+    "id": "u16",
+    "name": { "first": "Nina", "last": "Lee" },
+    "gender": "female",
+    "email": "nina@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-16T10:00:00Z",
+    "address": {
+      "street": "88 Robson St",
+      "city": "Vancouver",
+      "state": "BC",
+      "country": "CA",
+      "postcode": "V6B"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/16.jpg" }
+  },
+  {
+    "id": "u17",
+    "name": { "first": "Oliver", "last": "Perez" },
+    "gender": "male",
+    "email": "oliver@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-17T10:00:00Z",
+    "address": {
+      "street": "18 Market St",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "US",
+      "postcode": "94103"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/17.jpg" }
+  },
+  {
+    "id": "u18",
+    "name": { "first": "Paula", "last": "Young" },
+    "gender": "female",
+    "email": "paula@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-18T10:00:00Z",
+    "address": {
+      "street": "61 Queen St",
+      "city": "Ottawa",
+      "state": "ON",
+      "country": "CA",
+      "postcode": "K1A"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/18.jpg" }
+  },
+  {
+    "id": "u19",
+    "name": { "first": "Quentin", "last": "King" },
+    "gender": "male",
+    "email": "quentin@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-19T10:00:00Z",
+    "address": {
+      "street": "44 Oxford St",
+      "city": "London",
+      "state": "LDN",
+      "country": "UK",
+      "postcode": "W1D"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/19.jpg" }
+  },
+  {
+    "id": "u20",
+    "name": { "first": "Rachel", "last": "Scott" },
+    "gender": "female",
+    "email": "rachel@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-20T10:00:00Z",
+    "address": {
+      "street": "12 Yonge St",
+      "city": "Toronto",
+      "state": "ON",
+      "country": "CA",
+      "postcode": "M5E"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/20.jpg" }
+  },
+  {
+    "id": "u21",
+    "name": { "first": "Steven", "last": "Green" },
+    "gender": "male",
+    "email": "steven@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-21T10:00:00Z",
+    "address": {
+      "street": "77 Broadway",
+      "city": "New York",
+      "state": "NY",
+      "country": "US",
+      "postcode": "10007"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/21.jpg" }
+  },
+  {
+    "id": "u22",
+    "name": { "first": "Tina", "last": "Baker" },
+    "gender": "female",
+    "email": "tina@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-22T10:00:00Z",
+    "address": {
+      "street": "23 Granville St",
+      "city": "Vancouver",
+      "state": "BC",
+      "country": "CA",
+      "postcode": "V6Z"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/22.jpg" }
+  },
+  {
+    "id": "u23",
+    "name": { "first": "Ulysses", "last": "Adams" },
+    "gender": "male",
+    "email": "ulysses@example.com",
+    "role": "admin",
+    "createdAt": "2026-01-23T10:00:00Z",
+    "address": {
+      "street": "99 King St",
+      "city": "Chicago",
+      "state": "IL",
+      "country": "US",
+      "postcode": "60602"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/23.jpg" }
+  },
+  {
+    "id": "u24",
+    "name": { "first": "Victoria", "last": "Nelson" },
+    "gender": "female",
+    "email": "victoria@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-24T10:00:00Z",
+    "address": {
+      "street": "5 King Edward Rd",
+      "city": "London",
+      "state": "LDN",
+      "country": "UK",
+      "postcode": "SE1"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/women/24.jpg" }
+  },
+  {
+    "id": "u25",
+    "name": { "first": "William", "last": "Carter" },
+    "gender": "male",
+    "email": "william@example.com",
+    "role": "customer",
+    "createdAt": "2026-01-25T10:00:00Z",
+    "address": {
+      "street": "101 Market St",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "US",
+      "postcode": "94105"
+    },
+    "profile": { "avatar": "https://randomuser.me/api/portraits/men/25.jpg" }
+  }
 ]

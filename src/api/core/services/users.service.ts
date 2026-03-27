@@ -24,7 +24,7 @@ class UsersService {
 
         // Search
         if (query.search) {
-            data = searchData(data, query.search, ["firstName", "lastName", "email"])
+            data = searchData(data, query.search, ["name.first", "name.last", "email"])
         }
 
         // Filters

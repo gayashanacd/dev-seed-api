@@ -24,20 +24,40 @@ export interface Domain {
 const simulationFields: FieldConfig[] = [
     { name: "page", type: "number", description: "Page number for pagination" },
     { name: "limit", type: "number", description: "Number of results per page" },
-    { name: "search", type: "string", description: "Search by keyword" },
-    { 
-        name: "filter", 
-        type: "string", 
-        description: "Filter by specific field" 
+    {
+        name: "search",
+        type: "string",
+        description:
+        "Search across fields. Supports nested fields (e.g., searches name.first, name.last, email)."
     },
-    { 
-        name: "sort", 
-        type: "string", 
-        description: "Sort by a specific field" 
+
+    {
+        name: "filter",
+        type: "string",
+        description:
+        "Filter by any field using query params. Supports nested fields using dot notation (e.g., address.city=Toronto, name.first=John)."
     },
-    { name: "delay", type: "number (ms)", description: "Simulates network latency" },
-    { name: "error", type: "number (HTTP code)", description: "Force a specific HTTP error" },
-    { name: "errorRate", type: "number (0–100)", description: "Random API failures by percentage" }
+    {
+        name: "sort",
+        type: "string",
+        description:
+        "Sort by a field. Supports nested fields using dot notation (e.g., sortBy=name.first&order=asc)."
+    },
+    {
+        name: "delay",
+        type: "number (ms)",
+        description: "Simulates network latency"
+    },
+    {
+        name: "error",
+        type: "number (HTTP code)",
+        description: "Force a specific HTTP error"
+    },
+    {
+        name: "errorRate",
+        type: "number (0–100)",
+        description: "Random API failures by percentage"
+    }
 ]
 
 // Helper to automatically set default filterBy and sortBy
