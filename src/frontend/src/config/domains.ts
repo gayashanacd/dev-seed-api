@@ -72,7 +72,7 @@ function addDefaults(fields: FieldConfig[], defaultFilter?: string, defaultSort?
 export const domainConfig: Record<string, Domain> = {
     core: {
         title: "Core System",
-        baseUrl: "/api/v1",
+        baseUrl: "https://www.devseedapi.com/api/v1",
         entities: {
             users: {
                 title: "Users",
@@ -86,7 +86,7 @@ export const domainConfig: Record<string, Domain> = {
 
     ecommerce: {
         title: "E-Commerce Model",
-        baseUrl: "/api/v1/ecommerce",
+        baseUrl: "https://www.devseedapi.com/api/v1/ecommerce",
         entities: {
         products: {
             title: "Products",
@@ -165,7 +165,7 @@ export const domainConfig: Record<string, Domain> = {
 
     startup: {
         title: "Startup / SaaS Model",
-        baseUrl: "/api/v1/startup",
+        baseUrl: "https://www.devseedapi.com/api/v1/startup",
         entities: {
             organizations: {
                 title: "Organizations",
