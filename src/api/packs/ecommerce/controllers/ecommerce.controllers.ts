@@ -1,4 +1,5 @@
 import { createGetAllController } from "../../../shared/controllers/base.controller"
+import { Relations } from "../../../shared/utils/include"
 import {
     productsService,
     categoriesService,
@@ -8,10 +9,11 @@ import {
     couponsService
 } from "../services/ecommerce.services"
 
-// Relations map: pass raw data, not paginated
-const productRelations = {
+// Relations map: pass raw data, not paginated.
+// Array = one-to-one via `${key}Id`; { data, foreignKey } = one-to-many.
+const productRelations: Relations = {
     category: categoriesService.getAllData(),
-    reviews: reviewsService.getAllData()
+    reviews: { data: reviewsService.getAllData(), foreignKey: "productId" }
 }
 
 export const getProducts = createGetAllController(productsService, productRelations)

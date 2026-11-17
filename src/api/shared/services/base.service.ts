@@ -3,45 +3,73 @@ import { paginate } from "../utils/pagination"
 import { filterData } from "../utils/filtering"
 import { sortData } from "../utils/sorting"
 import { searchData } from "../utils/search"
-import { includeData } from "../utils/include"
+import { includeData, Relations } from "../utils/include"
+
+// Query params that control the pipeline and must never be treated as field filters
+const RESERVED_PARAMS = [
+    "page", "limit", "search", "sortBy", "order", "include",
+    "delay", "error", "errorRate"
+]
+
+export interface RangeFilter {
+    field: string // dot paths allowed
+    op: "gte" | "lte"
+}
+
+export interface BaseServiceOptions {
+    /** Fields `search` matches against (dot paths allowed). Defaults to all top-level keys. */
+    searchFields?: string[]
+    /** Query params treated as numeric range filters, e.g. `{ minPrice: { field: "price", op: "gte" } }` */
+    rangeFilters?: Record<string, RangeFilter>
+}
+
+const getValue = (obj: any, path: string) =>
+    path.split(".").reduce((acc, key) => acc?.[key], obj)
 
 export class BaseService<T extends Record<string, any>> {
-    constructor(private data: T[]) {}
+    constructor(private data: T[], private options: BaseServiceOptions = {}) {}
 
-    // Add this getter
     public getAllData(): T[] {
         return [...this.data]
     }
 
-    getAll(query: Record<string, any>, relations: Record<string, any[]> = {}) {
+    getAll(query: Record<string, any>, relations: Relations = {}) {
         let items = [...this.data]
+        const rangeFilters = this.options.rangeFilters ?? {}
 
         // Search
         if (query.search) {
-            items = searchData(items, query.search, Object.keys(items[0]))
+            const fields = this.options.searchFields ?? Object.keys(items[0] ?? {})
+            items = searchData(items, String(query.search), fields)
         }
 
-        // Filters
-        const filters = { ...query }
-        delete filters.page
-        delete filters.limit
-        delete filters.search
-        delete filters.sortBy
-        delete filters.order
-        delete filters.include
-        delete filters.delay
-        delete filters.error
-        delete filters.errorRate
+        // Range filters (non-numeric values are ignored)
+        for (const [param, { field, op }] of Object.entries(rangeFilters)) {
+            if (query[param] === undefined) continue
+            const bound = Number(query[param])
+            if (Number.isNaN(bound)) continue
+            items = items.filter(item => {
+                const value = Number(getValue(item, field))
+                if (Number.isNaN(value)) return false
+                return op === "gte" ? value >= bound : value <= bound
+            })
+        }
 
+        // Exact-match filters: every remaining query param
+        const filters: Record<string, string> = {}
+        for (const [key, value] of Object.entries(query)) {
+            if (RESERVED_PARAMS.includes(key) || key in rangeFilters) continue
+            filters[key] = String(value)
+        }
         items = filterData(items, filters)
 
         // Sort
         if (query.sortBy) {
-            items = sortData(items, query.sortBy, query.order || "asc")
+            items = sortData(items, String(query.sortBy), query.order === "desc" ? "desc" : "asc")
         }
 
         // Include relational data
-        const include = query.include ? query.include.split(",") : []
+        const include = query.include ? String(query.include).split(",") : []
         if (include.length > 0) {
             items = includeData(items, include, relations) as T[]
         }

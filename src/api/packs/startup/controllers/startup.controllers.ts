@@ -1,4 +1,5 @@
 import { createGetAllController } from "../../../shared/controllers/base.controller"
+import { Relations } from "../../../shared/utils/include"
 
 import {
     usersService,
@@ -10,36 +11,36 @@ import {
     notificationsService
 } from "../services/startup.services"
 
-// Relations
-const organizationRelations = {
+// Relations: array = one-to-one via `${key}Id`; { data, foreignKey } = one-to-many
+const organizationRelations: Relations = {
     owner: usersService.getAllData(),
-    projects: projectsService.getAllData(),
-    subscriptions: subscriptionsService.getAllData(),
-    invoices: invoicesService.getAllData()
+    projects: { data: projectsService.getAllData(), foreignKey: "organizationId" },
+    subscriptions: { data: subscriptionsService.getAllData(), foreignKey: "organizationId" },
+    invoices: { data: invoicesService.getAllData(), foreignKey: "organizationId" }
 }
 
-const projectRelations = {
+const projectRelations: Relations = {
     organization: organizationsService.getAllData(),
     owner: usersService.getAllData(),
-    tasks: tasksService.getAllData()
+    tasks: { data: tasksService.getAllData(), foreignKey: "projectId" }
 }
 
-const taskRelations = {
+const taskRelations: Relations = {
     project: projectsService.getAllData(),
     assignee: usersService.getAllData()
 }
 
-const subscriptionRelations = {
+const subscriptionRelations: Relations = {
     organization: organizationsService.getAllData(),
-    invoices: invoicesService.getAllData()
+    invoices: { data: invoicesService.getAllData(), foreignKey: "subscriptionId" }
 }
 
-const invoiceRelations = {
+const invoiceRelations: Relations = {
     organization: organizationsService.getAllData(),
     subscription: subscriptionsService.getAllData()
 }
 
-const notificationRelations = {
+const notificationRelations: Relations = {
     user: usersService.getAllData()
 }
 

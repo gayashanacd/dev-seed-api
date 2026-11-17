@@ -79,7 +79,7 @@ export const domainConfig: Record<string, Domain> = {
                 endpoint: "/users",
                 endpointName: "users",
                 description: "Returns a list of users. Supports pagination, filtering, sorting and simulation.",
-                fields: addDefaults(simulationFields, "role", "firstName&order=asc")
+                fields: addDefaults(simulationFields, "role", "name.first&order=asc")
             }
         }
     },
