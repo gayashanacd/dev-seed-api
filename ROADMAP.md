@@ -31,6 +31,15 @@ Order matters: protect existing users → get found (SEO) → make packs cheap t
 - [ ] A landing page for each new domain pack as it ships.
 - [ ] Listings and backlinks: public-apis GitHub list and awesome lists; tutorials on dev.to/Hashnode; launch posts on Reddit (r/webdev, r/reactjs) and Product Hunt.
 
+## User feedback (Tally)
+
+Set this up early: answers about which pack people want next should decide the Phase 3 order.
+
+- [ ] **Create a short Tally form** (free plan, about 5 questions, under a minute to fill in): what are you building with DevSeed, which pack you want next (Social Media / FinTech / EdTech / other), what's missing or annoying, how you found the site, and an optional email for follow-up. *(manual, tally.so)*
+- [ ] **Add feedback links to the site**: a "Feedback" link in the header or footer, a "Was this page helpful? / Request an endpoint" prompt on each docs page, and a link on the 404 page. Pass the current page as a Tally hidden field so answers show which page they came from. Open the form as a popup or link rather than embedding it in prerendered HTML, so SEO and page speed aren't affected.
+- [ ] **Mention it in the README** and in API docs ("Missing something? Tell us").
+- [ ] **Review responses monthly** and feed them into this roadmap.
+
 ## Phase 2: Make packs cheap to add
 
 - [ ] **Single pack definition**: one config per pack (data, relations, search fields, range filters, docs text) that generates both the Express routes and the frontend docs entry, replacing today's four-place edit (services, controllers, routes, `domains.ts`).
