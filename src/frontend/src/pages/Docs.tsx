@@ -15,7 +15,7 @@ const Docs = () => {
   if (!config) {
     return (
       <main className="container mx-auto p-10 dark:bg-gray-900 dark:text-gray-100">
-        <h2 className="text-2xl font-bold">Documentation not found</h2>
+        <h1 className="text-2xl font-bold">Documentation not found</h1>
       </main>
     )
   }
@@ -26,10 +26,10 @@ const Docs = () => {
       {/* Intro */}
       <section className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold mb-2">API Documentation</h1>
+          <h1 className="text-3xl font-bold mb-2">{config.title} API</h1>
           <p className="text-gray-600 dark:text-gray-300">
-            DevSeed API provides mock REST endpoints for frontend developers.
-            Use these APIs to build and test applications without needing a real backend.
+            {config.description} A free mock REST endpoint from DevSeed API for building and
+            testing frontend applications without a real backend.
           </p>
         </div>
 
@@ -59,7 +59,7 @@ const Docs = () => {
 
       {/* Domain Entity */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">{config.title}</h2>
+        <h2 className="text-2xl font-semibold mb-4">Endpoint</h2>
 
         <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono mb-4">
           GET {config.endpoint}

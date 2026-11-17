@@ -64,6 +64,14 @@ To add an entity: add the JSON file, a `BaseService` in the pack's services file
 
 A docs site with routes `/` (Home) and `/docs/:domain/:entity` (inside `DocsLayout`). `src/config/domains.ts` is the single source of truth for documented domains/entities, their query params, and production `baseUrl`s. `ApiConsole.tsx` sends live requests to the relative `/api/v1{endpoint}`. Root `tsconfig.json` excludes `src/frontend`, which has its own tsconfigs.
 
+### Prerendering and SEO
+`npm run build` (frontend) runs the client build, an SSR build of `src/entry-server.tsx`, then `scripts/prerender.mjs`. The prerender step writes one static HTML file per route (`dist/index.html`, `dist/docs/<domain>/<entity>.html`), plus `dist/404.html` and `dist/sitemap.xml`. Each file contains real markup and per-page `<head>` tags, and `main.tsx` hydrates it in the browser.
+- `src/seo.ts` is the single source for page titles, descriptions, canonical URLs and the list of indexable routes (derived from `domains.ts`, so new entities are picked up automatically). `<Seo />` reuses it to update `<head>` on client-side navigation. Don't add per-page `<title>`/`<meta>` in components.
+- `App.tsx` exports `AppShell` (router-agnostic), used by both `BrowserRouter` (browser) and `StaticRouter` (prerender). A route that isn't listed in `getIndexableRoutes()` is served with HTTP 404 on a hard load.
+- Components must be renderable on the server: touch `window`/`document` only inside effects or event handlers, and keep the first render deterministic, or hydration will mismatch.
+- Express (`src/app.ts`) serves `dist` with `extensions: ["html"]` for clean URLs. It 301-redirects trailing slashes and `/docs`, returns `404.html` with status 404 for unknown pages, and caches `/assets/*` as immutable. `FRONTEND_DIST` overrides the build path (used by `tests/frontend.test.ts`).
+- `public/og-image.png` is the 1200×630 social preview image.
+
 ## Environment
 
 `.env` (gitignored) holds `PORT` and `NODE_ENV` and is read in `src/api/config/env.ts`. The README targets Node 22.15.

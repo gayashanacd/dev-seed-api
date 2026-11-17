@@ -32,14 +32,14 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between">
 
         {/* Logo */}
-        <h1 className="text-xl font-bold flex items-center gap-2">
+        <div className="text-xl font-bold flex items-center gap-2">
           <Link to="/">DevSeed API</Link>
 
           {/* Version badge */}
           <span className="text-xs bg-white text-blue-600 px-2 py-1 rounded">
             v1
           </span>
-        </h1>
+        </div>
 
         <nav className="flex items-center gap-5">
 

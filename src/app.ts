@@ -29,19 +29,41 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok" })
 })
 
-// Serve React SPA
-const buildPath = path.join(__dirname, "../src/frontend/dist")
+// ---- Frontend (prerendered React site, see src/frontend/scripts/prerender.mjs) ----
+// FRONTEND_DIST lets tests point at a fixture build.
+const buildPath = process.env.FRONTEND_DIST || path.join(__dirname, "../src/frontend/dist")
 
-// Serve static files
-app.use(express.static(buildPath))
-
-// SPA fallback for non-API routes
+// Canonical URLs have no trailing slash: /docs/core/users/ -> /docs/core/users
 app.use((req, res, next) => {
-  if (!req.path.startsWith("/api")) {
-    res.sendFile(path.join(buildPath, "index.html"))
-  } else {
-    next()
+  if ((req.method === "GET" || req.method === "HEAD") && req.path.length > 1 && req.path.endsWith("/") && !req.path.startsWith("/api")) {
+    const query = req.originalUrl.slice(req.path.length)
+    return res.redirect(301, req.path.replace(/\/+$/, "") + query)
   }
+  next()
+})
+
+app.get("/docs", (_req, res) => res.redirect(301, "/docs/core/users"))
+
+// Hashed build assets never change: cache for a year
+app.use("/assets", express.static(path.join(buildPath, "assets"), { immutable: true, maxAge: "1y", fallthrough: false }))
+
+// Prerendered pages: /docs/core/users -> docs/core/users.html. HTML is revalidated on every request
+// so deploys show up immediately.
+app.use(express.static(buildPath, {
+  extensions: ["html"],
+  redirect: false,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith(".html")) res.setHeader("Cache-Control", "no-cache")
+  }
+}))
+
+// Any other non-API page: real 404 status with the prerendered "not found" page
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api") || (req.method !== "GET" && req.method !== "HEAD")) return next()
+  res.status(404).setHeader("Cache-Control", "no-cache")
+  res.sendFile(path.join(buildPath, "404.html"), err => {
+    if (err) next() // frontend not built (e.g. backend-only dev): fall back to JSON 404
+  })
 })
 
 // Error & 404 Middlewares

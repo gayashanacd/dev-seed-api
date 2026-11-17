@@ -2,14 +2,34 @@
 
 Hosting: Render (origin) behind Cloudflare (DNS/proxy). The API has active users, so `/api/v1` behaviour changes must stay backwards compatible.
 
-Order matters: protect existing users → make packs cheap to add → ship packs one at a time → growth.
+Order matters: protect existing users → get found (SEO) → make packs cheap to add → ship packs one at a time → growth.
 
 ## Phase 1: Protect existing users
 
 - [x] **Rate limiting keyed by real client IP.** Traffic arrives via Cloudflare → Render, so without proxy handling every user can share one 200-req/15-min bucket. Key on `CF-Connecting-IP` and set `trust proxy`.
 - [x] **Regression test suite** (Vitest + Supertest) covering the query contract: pagination, filters (exact, nested, range), search, sort, `include`, simulation params, response shape, 404 and error handling.
 - [x] **Usage logging**: one structured log line per API request (endpoint, query-param *names*, status, duration; no IPs or values) so Render logs show which endpoints and features are used.
-- [ ] **Stop cold starts.** Render's free instance sleeps after ~15 min idle and takes 30–60 s to wake. Fix: a free uptime monitor (UptimeRobot) that requests `https://<service>.onrender.com/health` every 5 min. Use the onrender URL, not the Cloudflare domain, so pings don't inflate Cloudflare analytics. *(manual)*
+- [x] **Stop cold starts.** Render's free instance sleeps after ~15 min idle and takes 30–60 s to wake. Fix: a free uptime monitor (UptimeRobot) that requests `https://<service>.onrender.com/health` every 5 min. Use the onrender URL, not the Cloudflare domain, so pings don't inflate Cloudflare analytics. *(manual)*
+
+## Phase 1.5: SEO (get found on Google)
+
+**Setup (manual)**
+- [ ] **Google Search Console**: verify devseedapi.com through Cloudflare DNS, then submit `https://www.devseedapi.com/sitemap.xml` once the technical fixes are deployed.
+- [ ] **Bing Webmaster Tools**: import the site from Search Console.
+
+**Technical**
+- [x] **Prerender every route at build time** (home and each docs page) so crawlers and link previews get real HTML instead of an empty `<div id="root">`.
+- [x] **Per-page title, description, canonical URL and Open Graph/Twitter tags**, generated from `domains.ts`.
+- [x] **`robots.txt` and a generated `sitemap.xml`** (today both URLs return the homepage HTML with status 200).
+- [x] **Real 404s**: unknown pages return HTTP 404 with a "not found" page instead of 200.
+- [x] **Homepage cleanup**: one `<h1>`, one set of meta tags (currently duplicated in `Home.tsx` and `Hero.tsx`); replace unmaintained `react-helmet`.
+- [x] **Social preview image** (1200×630) for shared links.
+- [x] **Long-lived caching** for hashed assets (`/assets/*`) to improve page speed.
+
+**Content and links (ongoing)**
+- [ ] Guide pages targeting real searches: "mock API for React", "fake e-commerce API", "JSONPlaceholder alternative with relations", "test loading/error states".
+- [ ] A landing page for each new domain pack as it ships.
+- [ ] Listings and backlinks: public-apis GitHub list and awesome lists; tutorials on dev.to/Hashnode; launch posts on Reddit (r/webdev, r/reactjs) and Product Hunt.
 
 ## Phase 2: Make packs cheap to add
 
@@ -30,6 +50,5 @@ For each pack: data + relations, tests, docs entry, remove "Coming Soon" in `Dom
 
 ## Phase 4: Growth
 
-- [ ] **SEO**: prerender docs pages with per-page titles and meta tags (today they're client-rendered, and tags are duplicated in `Home.tsx` and `Hero.tsx`). Add a sitemap.
 - [ ] **OpenAPI spec**: importable into Postman/Insomnia; could drive the docs.
 - [ ] **Changelog and stability policy** for `/api/v1`.
