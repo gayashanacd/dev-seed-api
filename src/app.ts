@@ -8,8 +8,13 @@ import { errorMiddleware } from "./api/shared/middleware/error.middleware"
 
 import apiModule from "./api/api.module"
 import { apiLimiter } from "./api/shared/middleware/rateLimit.middleware"
+import { requestLogMiddleware } from "./api/shared/middleware/requestLog.middleware"
 
 const app = express()
+
+// Behind Render's proxy: trust one hop so req.ip is the connecting client, not the proxy.
+// (Cloudflare's client IP is read separately from CF-Connecting-IP in the rate limiter.)
+app.set("trust proxy", 1)
 
 // Middlewares
 app.use(cors())
@@ -17,7 +22,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // Apply rate limiting ONLY to API
-app.use("/api/v1", apiLimiter, apiModule)
+app.use("/api/v1", requestLogMiddleware, apiLimiter, apiModule)
 
 // Health check route
 app.get("/health", (_req, res) => {

@@ -10,15 +10,20 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.3.2",
+    "@types/supertest": "^7.2.1",
     "nodemon": "^3.1.14",
+    "supertest": "^7.3.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
   },
   "scripts": {
     "build:frontend": "cd src/frontend && npm install && npm run build",
     "build": "tsc && npm run build:frontend",
     "dev": "nodemon --watch src --ext ts,tsx --exec ts-node src/server.ts",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
   }
 }

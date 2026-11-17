@@ -17,6 +17,8 @@ npm run dev            # nodemon + ts-node on src/server.ts (PORT from .env, def
 npm run build          # tsc -> dist/, then installs and builds the frontend into src/frontend/dist
 npm start              # node dist/server.js (needs a prior build)
 npx tsc --noEmit       # type-check backend only
+npm test               # Vitest + Supertest suite in tests/ (runs against the Express app in-process)
+npx vitest run tests/query.test.ts -t "include"   # single file / test name filter
 
 # Frontend (src/frontend)
 npm run dev            # Vite dev server
@@ -24,13 +26,15 @@ npm run build          # tsc -b && vite build -> src/frontend/dist
 npm run lint           # eslint (frontend only; the backend has no linter)
 ```
 
-There is no test suite or test runner in either project. To check behavior, run `npm run dev` and send requests, e.g. `curl "localhost:3000/api/v1/ecommerce/products?include=category,reviews&limit=2"`.
+Tests cover the public query contract (`tests/query.test.ts`) and the rate limiter (`tests/rateLimit.test.ts`). The API has real users, so add or update tests whenever `/api/v1` behavior changes. The frontend has no tests.
 
 The Vite config has **no proxy**. The frontend's API calls use relative `/api/v1/...` URLs, so the console only works when the Express server serves the built SPA. To try the frontend against a live API, build it (`npm run build:frontend`) and use the Express server, or add a `server.proxy` to `vite.config.ts`.
 
 ## Backend architecture
 
-Request flow: `server.ts` → `app.ts` (cors, body-parser, `apiLimiter` rate limit of 200 req / 15 min per IP on `/api/v1` only, `/health`, static SPA from `src/frontend/dist` with an `index.html` fallback for non-`/api` paths, then the 404 and error middleware) → `api/api.module.ts`. That module mounts:
+Production runs on Render behind Cloudflare. `app.ts` sets `trust proxy` to 1, and the rate limiter keys on the `CF-Connecting-IP` header (falling back to `req.ip`). Without that, every user would share one bucket.
+
+Request flow: `server.ts` → `app.ts` (cors, body-parser, `requestLogMiddleware` (one JSON line per request with param names only and no IPs, silent when `NODE_ENV=test`), `apiLimiter` rate limit of 200 req / 15 min per client on `/api/v1` only, `/health`, static SPA from `src/frontend/dist` with an `index.html` fallback for non-`/api` paths, then the 404 and error middleware) → `api/api.module.ts`. That module mounts:
 - `/` → `core/core.module.ts` (currently just `/users`)
 - `/ecommerce` → `packs/ecommerce/routes`
 - `/startup` → `packs/startup/routes`
