@@ -62,9 +62,11 @@ const simulationFields: FieldConfig[] = [
 
 // Helper to automatically set default filterBy and sortBy
 function addDefaults(fields: FieldConfig[], defaultFilter?: string, defaultSort?: string) {
+    // Return copies: `simulationFields` is shared by every entity, so mutating it would
+    // leave all entities with whichever defaults were applied last.
     return fields.map(f => {
-        if (f.name === "filter" && defaultFilter) f.filterBy = defaultFilter
-        if (f.name === "sort" && defaultSort) f.sortBy = defaultSort
+        if (f.name === "filter" && defaultFilter) return { ...f, filterBy: defaultFilter }
+        if (f.name === "sort" && defaultSort) return { ...f, sortBy: defaultSort }
         return f
     })
 }
