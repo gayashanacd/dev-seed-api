@@ -14,8 +14,8 @@ Order matters: protect existing users → get found (SEO) → make packs cheap t
 ## Phase 1.5: SEO (get found on Google)
 
 **Setup (manual)**
-- [ ] **Google Search Console**: verify devseedapi.com through Cloudflare DNS, then submit `https://www.devseedapi.com/sitemap.xml` once the technical fixes are deployed.
-- [ ] **Bing Webmaster Tools**: import the site from Search Console.
+- [x] **Google Search Console**: verify devseedapi.com through Cloudflare DNS, then submit `https://www.devseedapi.com/sitemap.xml` once the technical fixes are deployed.
+- [x] **Bing Webmaster Tools**: import the site from Search Console.
 
 **Technical**
 - [x] **Prerender every route at build time** (home and each docs page) so crawlers and link previews get real HTML instead of an empty `<div id="root">`.
