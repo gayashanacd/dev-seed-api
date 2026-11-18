@@ -20,7 +20,7 @@ export const ecommercePack = {
             filters: [
                 { name: "categoryId", type: "string", description: "Filter by category ID" }
             ],
-            examples: { filter: "categoryId", sort: "price&order=asc" }
+            examples: { id: "p1", filter: "categoryId", sort: "price&order=asc" }
         },
         categories: {
             title: "Categories",
@@ -28,7 +28,7 @@ export const ecommercePack = {
             filters: [
                 { name: "name", type: "string", description: "Filter by category name" }
             ],
-            examples: { filter: "name", sort: "name&order=asc" }
+            examples: { id: "c1", filter: "name", sort: "name&order=asc" }
         },
         reviews: {
             title: "Reviews",
@@ -38,7 +38,7 @@ export const ecommercePack = {
                 { name: "userId", type: "string", description: "Filter by user ID" },
                 { name: "rating", type: "number", description: "Filter by rating" }
             ],
-            examples: { filter: "productId", sort: "rating&order=desc" }
+            examples: { id: "101", filter: "productId", sort: "rating&order=desc" }
         },
         orders: {
             title: "Orders",
@@ -47,7 +47,7 @@ export const ecommercePack = {
                 { name: "userId", type: "string", description: "Filter by user ID" },
                 { name: "status", type: "string", description: "Order status filter" }
             ],
-            examples: { filter: "status", sort: "createdAt&order=desc" }
+            examples: { id: "o1", filter: "status", sort: "createdAt&order=desc" }
         },
         cart: {
             title: "Cart",
@@ -55,7 +55,7 @@ export const ecommercePack = {
             filters: [
                 { name: "userId", type: "string", description: "Filter by user ID" }
             ],
-            examples: { filter: "userId", sort: "id&order=asc" }
+            examples: { id: "cart1", filter: "userId", sort: "id&order=asc" }
         },
         coupons: {
             title: "Coupons",
@@ -64,7 +64,7 @@ export const ecommercePack = {
                 { name: "active", type: "boolean", description: "Filter active coupons" },
                 { name: "code", type: "string", description: "Filter by coupon code" }
             ],
-            examples: { filter: "code", sort: "id&order=asc" }
+            examples: { id: "cp1", filter: "code", sort: "id&order=asc" }
         }
     }
 } satisfies PackDefinition

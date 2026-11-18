@@ -19,6 +19,11 @@ describe("pack definitions", () => {
             expect(res.status).toBe(200)
             expect(res.body.data.length).toBeGreaterThan(0)
 
+            // The docs example id exists and is served by GET /:id
+            const one = await request(app).get(`/api/v1${path}/${entity.examples.id}`)
+            expect(one.status).toBe(200)
+            expect(String(one.body.data.id)).toBe(entity.examples.id)
+
             // Every declared relation resolves on at least one record
             for (const relationKey of Object.keys(entity.relations ?? {})) {
                 const inc = await request(app).get(`/api/v1${path}?include=${relationKey}&limit=100`)
@@ -32,7 +37,7 @@ describe("buildPacksRouter", () => {
     const pack = (entities: PackDefinition["entities"]): PackDefinition => ({
         key: "test", title: "Test", label: "Test", basePath: "/test", entities
     })
-    const entity = { title: "A", description: "A", examples: { filter: "id", sort: "id" } }
+    const entity = { title: "A", description: "A", examples: { id: "1", filter: "id", sort: "id" } }
 
     it("throws when an entity has no dataset", () => {
         expect(() => buildPacksRouter([pack({ things: entity })], { test: {} }))

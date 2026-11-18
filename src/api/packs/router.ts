@@ -1,7 +1,7 @@
-import { Router } from "express"
+import { RequestHandler, Router } from "express"
 
 import { BaseService } from "../shared/services/base.service"
-import { createGetAllController } from "../shared/controllers/base.controller"
+import { createGetAllController, createGetByIdController } from "../shared/controllers/base.controller"
 import { createBaseRoute } from "../shared/routes/base.route"
 import { Relations } from "../shared/utils/include"
 import type { PackDefinition } from "./types"
@@ -12,7 +12,7 @@ export type PackData<K extends string = string> = Record<K, Record<string, any>[
 const entityPath = (pack: PackDefinition, entityKey: string) => `${pack.basePath}/${entityKey}`
 
 /**
- * Builds every `GET <basePath>/<entity>` route from the pack definitions.
+ * Builds every `GET <basePath>/<entity>` and `GET <basePath>/<entity>/:id` route from the pack definitions.
  * Throws at startup if a definition and its data don't line up, so mistakes never reach users.
  */
 export const buildPacksRouter = (
@@ -58,7 +58,10 @@ export const buildPacksRouter = (
             paths.add(path)
 
             const service = services.get(`${pack.key}/${entityKey}`)!
-            router.use(path, createBaseRoute(createGetAllController(service, relations)))
+            router.use(path, createBaseRoute(
+                createGetAllController(service, relations),
+                createGetByIdController(service, relations, entityKey) as RequestHandler
+            ))
         }
     }
 

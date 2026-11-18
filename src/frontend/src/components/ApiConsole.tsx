@@ -2,23 +2,29 @@ import { useState, useEffect } from "react"
 
 interface ApiConsoleProps {
   endpoint: string
+  /** Placeholder for the optional ID field */
+  exampleId: string
 }
 
-const ApiConsole = ({ endpoint }: ApiConsoleProps) => {
+const ApiConsole = ({ endpoint, exampleId }: ApiConsoleProps) => {
+    const [id, setId] = useState("")
     const [query, setQuery] = useState("")
     const [response, setResponse] = useState("")
     const [loading, setLoading] = useState(false)
 
-    // Clear query and response when endpoint changes
+    // Clear inputs and response when endpoint changes
     useEffect(() => {
+        setId("")
         setQuery("")
         setResponse("")
     }, [endpoint])
 
+    const path = `${endpoint}${id.trim() ? `/${encodeURIComponent(id.trim())}` : ""}`
+
     const runRequest = async () => {
         setLoading(true)
         try {
-        const url = `/api/v1${endpoint}${query ? `?${query}` : ""}`
+        const url = `/api/v1${path}${query ? `?${query}` : ""}`
         const res = await fetch(url)
         const data = await res.json()
         setResponse(JSON.stringify(data, null, 2))
@@ -35,8 +41,19 @@ const ApiConsole = ({ endpoint }: ApiConsoleProps) => {
         <div className="space-y-2">
             <label className="block text-sm font-medium">Endpoint</label>
             <div className="border p-2 rounded bg-gray-100 font-mono dark:bg-gray-800">
-            GET {endpoint}
+            GET {path}
             </div>
+        </div>
+
+        <div className="space-y-2">
+            <label className="block text-sm font-medium" htmlFor="api-console-id">ID (optional, fetches one record)</label>
+            <input
+            id="api-console-id"
+            className="border p-2 rounded w-full"
+            placeholder={exampleId}
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            />
         </div>
 
         <div className="space-y-2">

@@ -17,7 +17,7 @@ export const startupPack = {
                 subscriptions: { entity: "subscriptions", foreignKey: "organizationId" },
                 invoices: { entity: "invoices", foreignKey: "organizationId" }
             },
-            examples: { filter: "name", sort: "createdAt&order=asc" }
+            examples: { id: "org1", filter: "name", sort: "createdAt&order=asc" }
         },
         projects: {
             title: "Projects",
@@ -27,7 +27,7 @@ export const startupPack = {
                 owner: users,
                 tasks: { entity: "tasks", foreignKey: "projectId" }
             },
-            examples: { filter: "organizationId", sort: "createdAt&order=desc" }
+            examples: { id: "proj1", filter: "organizationId", sort: "createdAt&order=desc" }
         },
         tasks: {
             title: "Tasks",
@@ -36,7 +36,7 @@ export const startupPack = {
                 project: { entity: "projects" },
                 assignee: users
             },
-            examples: { filter: "projectId", sort: "dueDate&order=asc" }
+            examples: { id: "task1", filter: "projectId", sort: "dueDate&order=asc" }
         },
         subscriptions: {
             title: "Subscriptions",
@@ -45,7 +45,7 @@ export const startupPack = {
                 organization: { entity: "organizations" },
                 invoices: { entity: "invoices", foreignKey: "subscriptionId" }
             },
-            examples: { filter: "organizationId", sort: "createdAt&order=desc" }
+            examples: { id: "sub1", filter: "organizationId", sort: "createdAt&order=desc" }
         },
         invoices: {
             title: "Invoices",
@@ -54,7 +54,7 @@ export const startupPack = {
                 organization: { entity: "organizations" },
                 subscription: { entity: "subscriptions" }
             },
-            examples: { filter: "subscriptionId", sort: "createdAt&order=desc" }
+            examples: { id: "inv1", filter: "subscriptionId", sort: "createdAt&order=desc" }
         },
         notifications: {
             title: "Notifications",
@@ -62,7 +62,7 @@ export const startupPack = {
             relations: {
                 user: users
             },
-            examples: { filter: "userId", sort: "createdAt&order=desc" }
+            examples: { id: "n1", filter: "userId", sort: "createdAt&order=desc" }
         }
     }
 } satisfies PackDefinition

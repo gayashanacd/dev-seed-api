@@ -164,6 +164,62 @@ describe("include", () => {
     })
 })
 
+describe("get by id", () => {
+    it("returns one record as { success, data } without meta", async () => {
+        const res = await get("/users/u1")
+        expect(res.status).toBe(200)
+        expect(res.body).toEqual({ success: true, data: expect.objectContaining({ id: "u1" }) })
+        expect(res.body).not.toHaveProperty("meta")
+    })
+
+    it("returns the same record as the list endpoint", async () => {
+        const list = await get("/ecommerce/products?limit=100")
+        const one = await get("/ecommerce/products/p2")
+        expect(one.body.data).toEqual(list.body.data.find((p: any) => p.id === "p2"))
+    })
+
+    it("matches numeric ids against the URL segment", async () => {
+        const res = await get("/ecommerce/reviews/101")
+        expect(res.status).toBe(200)
+        expect(res.body.data.id).toBe(101)
+    })
+
+    it("returns a JSON 404 for an unknown id", async () => {
+        const res = await get("/users/nope")
+        expect(res.status).toBe(404)
+        expect(res.body).toEqual({ success: false, message: 'No users record with id "nope"' })
+    })
+
+    it("resolves one-to-one and one-to-many includes", async () => {
+        const res = await get("/ecommerce/products/p1?include=category,reviews")
+        expect(res.body.data.category.id).toBe(res.body.data.categoryId)
+        expect(Array.isArray(res.body.data.reviews)).toBe(true)
+        expect(res.body.data.reviews.every((r: any) => r.productId === "p1")).toBe(true)
+
+        const org = await get("/startup/organizations/org1?include=owner,projects")
+        expect(org.body.data.owner.id).toBe(org.body.data.ownerId)
+        expect(org.body.data.projects.length).toBeGreaterThan(0)
+    })
+
+    it("ignores filter, sort and pagination params", async () => {
+        const res = await get("/users/u1?role=nobody&page=9&sortBy=email")
+        expect(res.status).toBe(200)
+        expect(res.body.data.id).toBe("u1")
+    })
+
+    it("supports simulation params", async () => {
+        expect((await get("/users/u1?error=503")).status).toBe(503)
+        expect((await get("/users/nope?error=503")).status).toBe(503)
+        expect((await get("/users/u1?errorRate=100")).status).toBe(500)
+    })
+
+    it("does not mutate the dataset when including relations", async () => {
+        await get("/ecommerce/products/p1?include=category")
+        const res = await get("/ecommerce/products/p1")
+        expect(res.body.data).not.toHaveProperty("category")
+    })
+})
+
 describe("simulation", () => {
     it("forces the requested HTTP status with ?error=", async () => {
         for (const code of [400, 404, 418, 503]) {

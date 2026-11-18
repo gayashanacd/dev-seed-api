@@ -16,6 +16,10 @@ export interface EntityConfig {
     endpoint: string
     endpointName: string
     description: string
+    /** A real record id, used in GET /:id examples */
+    exampleId: string
+    /** Keys accepted by `?include=` (empty when the entity has no relations) */
+    includeKeys: string[]
     fields: FieldConfig[]
 }
 
@@ -103,6 +107,8 @@ export const domainConfig: Record<string, Domain> = Object.fromEntries(
                 endpoint: `${pack.basePath}/${key}`,
                 endpointName: key,
                 description: entity.description,
+                exampleId: entity.examples.id,
+                includeKeys: Object.keys(entity.relations ?? {}),
                 fields: buildFields(entity)
             }])
         )

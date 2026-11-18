@@ -26,6 +26,9 @@ export interface BaseServiceOptions {
 const getValue = (obj: any, path: string) =>
     path.split(".").reduce((acc, key) => acc?.[key], obj)
 
+const parseInclude = (query: Record<string, any>): string[] =>
+    query.include ? String(query.include).split(",") : []
+
 export class BaseService<T extends Record<string, any>> {
     constructor(private data: T[], private options: BaseServiceOptions = {}) {}
 
@@ -69,7 +72,7 @@ export class BaseService<T extends Record<string, any>> {
         }
 
         // Include relational data
-        const include = query.include ? String(query.include).split(",") : []
+        const include = parseInclude(query)
         if (include.length > 0) {
             items = includeData(items, include, relations) as T[]
         }
@@ -79,5 +82,17 @@ export class BaseService<T extends Record<string, any>> {
         const limit = query.limit ? Number(query.limit) : 10
 
         return paginate(items, page, limit)
+    }
+
+    /**
+     * One record by `id` (compared as strings, so numeric ids match the URL segment), with
+     * `include` applied. Other query params are ignored. Returns undefined when not found.
+     */
+    getById(id: string, query: Record<string, any> = {}, relations: Relations = {}) {
+        const item = this.data.find(record => String(record.id) === id)
+        if (!item) return undefined
+
+        const include = parseInclude(query)
+        return include.length > 0 ? includeData([item], include, relations)[0] : { ...item }
     }
 }

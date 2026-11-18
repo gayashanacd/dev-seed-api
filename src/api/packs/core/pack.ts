@@ -10,7 +10,7 @@ export const corePack = {
             title: "Users",
             description: "Returns a list of users. Supports pagination, filtering, sorting and simulation.",
             searchFields: ["name.first", "name.last", "email"],
-            examples: { filter: "role", sort: "name.first&order=asc" }
+            examples: { id: "u1", filter: "role", sort: "name.first&order=asc" }
         }
     }
 } satisfies PackDefinition

@@ -1,8 +1,9 @@
+import { RequestHandler, Router } from "express"
 
-import { Router } from "express"
-
-export const createBaseRoute = (controller: any) => {
+/** `GET /` (list) and `GET /:id` (one record) for an entity */
+export const createBaseRoute = (getAll: RequestHandler, getById: RequestHandler) => {
     const router = Router()
-    router.get("/", controller)
+    router.get("/", getAll)
+    router.get("/:id", getById)
     return router
 }

@@ -59,13 +59,21 @@ const Docs = () => {
 
       {/* Domain Entity */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4">Endpoint</h2>
+        <h2 className="text-2xl font-semibold mb-4">Endpoints</h2>
 
-        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono mb-4">
+        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono mb-2">
           GET {config.endpoint}
         </div>
-
         <p className="text-gray-600 dark:text-gray-300 mb-4">{config.description}</p>
+
+        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono mb-2">
+          GET {config.endpoint}/:id
+        </div>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          Returns a single record as <code>{"{ success, data }"}</code>, or a 404 if the id doesn't
+          exist. Supports {config.includeKeys.length > 0 ? "include and " : ""}the simulation
+          parameters below.
+        </p>
 
         {/* Query Parameters */}
         <h3 className="text-xl font-semibold mb-2">Query Parameters</h3>
@@ -109,6 +117,11 @@ const Docs = () => {
             <CodeBlock code={`GET ${config.endpoint}`} />
           </div>
 
+          <div>
+            <p className="font-semibold">Get one by ID</p>
+            <CodeBlock code={`GET ${config.endpoint}/${config.exampleId}`} />
+          </div>
+
           {config.fields.some(f => f.name === "limit") && (
             <div>
               <p className="font-semibold">Pagination</p>
@@ -137,10 +150,11 @@ const Docs = () => {
             </div>
           )}
 
-          {config.fields.some(f => f.name === "include") && (
+          {config.includeKeys.length > 0 && (
             <div>
               <p className="font-semibold">Include Related Data</p>
-              <CodeBlock code={`GET ${config.endpoint}?include=entity1,entity1`} />
+              <CodeBlock code={`GET ${config.endpoint}?include=${config.includeKeys.join(",")}`} />
+              <CodeBlock code={`GET ${config.endpoint}/${config.exampleId}?include=${config.includeKeys.join(",")}`} />
             </div>
           )}
 
@@ -171,7 +185,7 @@ const Docs = () => {
       {/* Try API */}
       <section id="try-api">
         <h2 className="text-2xl font-semibold mb-4">Try the API</h2>
-        <ApiConsole endpoint={config.endpoint} />
+        <ApiConsole endpoint={config.endpoint} exampleId={config.exampleId} />
       </section>
 
     </main>

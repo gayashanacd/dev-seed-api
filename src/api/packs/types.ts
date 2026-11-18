@@ -46,8 +46,8 @@ export interface EntityDefinition {
     relations?: Record<string, RelationDefinition>
     /** Exact-match filters worth calling out in the docs */
     filters?: DocParam[]
-    /** Example filter field and sort expression for the docs */
-    examples: { filter: string; sort: string }
+    /** Docs examples: a real record id (checked by tests), a filter field and a sort expression */
+    examples: { id: string; filter: string; sort: string }
 }
 
 export interface PackDefinition {
