@@ -44,7 +44,7 @@ Set this up early: answers about which pack people want next should decide the P
 
 - [x] **Single pack definition**: one config per pack (data, relations, search fields, range filters, docs text) that generates both the Express routes and the frontend docs entry, replacing today's four-place edit (services, controllers, routes, `domains.ts`).
 - [x] **`GET /:id`** on every entity, with `include` support.
-- [ ] **Fake write endpoints**: `POST`/`PUT`/`PATCH`/`DELETE` that validate and echo a realistic response without persisting (JSONPlaceholder-style).
+- [x] **Fake write endpoints**: `POST`/`PUT`/`PATCH`/`DELETE` that validate and echo a realistic response without persisting (JSONPlaceholder-style).
 - [ ] **Seeded data generator**: a script that produces larger, deterministic datasets with consistent foreign keys, committed as JSON. Current sets are small (e.g. 2 invoices, 3 tasks).
 - [ ] **Frontend on Cloudflare Pages (free)**: the docs site loads instantly from the edge, independent of Render's state; the API stays on Render.
 - [ ] *(Later, if usage grows)* **Evaluate moving the API to Cloudflare Workers** (free tier, no sleeping). The data is static JSON, so it fits well. Do this after the single-pack-definition refactor.

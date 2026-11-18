@@ -1,9 +1,22 @@
 import { RequestHandler, Router } from "express"
 
-/** `GET /` (list) and `GET /:id` (one record) for an entity */
-export const createBaseRoute = (getAll: RequestHandler, getById: RequestHandler) => {
+export interface EntityHandlers {
+    getAll: RequestHandler
+    getById: RequestHandler
+    create: RequestHandler
+    replace: RequestHandler
+    update: RequestHandler
+    remove: RequestHandler
+}
+
+/** Read routes plus the fake write routes for an entity */
+export const createBaseRoute = (handlers: EntityHandlers) => {
     const router = Router()
-    router.get("/", getAll)
-    router.get("/:id", getById)
+    router.get("/", handlers.getAll)
+    router.post("/", handlers.create)
+    router.get("/:id", handlers.getById)
+    router.put("/:id", handlers.replace)
+    router.patch("/:id", handlers.update)
+    router.delete("/:id", handlers.remove)
     return router
 }

@@ -1,7 +1,12 @@
 import { RequestHandler, Router } from "express"
 
 import { BaseService } from "../shared/services/base.service"
-import { createGetAllController, createGetByIdController } from "../shared/controllers/base.controller"
+import {
+    createGetAllController,
+    createGetByIdController,
+    createWriteControllers
+} from "../shared/controllers/base.controller"
+import { WriteService, ForeignKey } from "../shared/services/write.service"
 import { createBaseRoute } from "../shared/routes/base.route"
 import { Relations } from "../shared/utils/include"
 import type { PackDefinition } from "./types"
@@ -12,7 +17,8 @@ export type PackData<K extends string = string> = Record<K, Record<string, any>[
 const entityPath = (pack: PackDefinition, entityKey: string) => `${pack.basePath}/${entityKey}`
 
 /**
- * Builds every `GET <basePath>/<entity>` and `GET <basePath>/<entity>/:id` route from the pack definitions.
+ * Builds every entity's routes from the pack definitions: `GET` and `POST` on `<basePath>/<entity>`,
+ * `GET`, `PUT`, `PATCH` and `DELETE` on `<basePath>/<entity>/:id` (writes are simulated, never stored).
  * Throws at startup if a definition and its data don't line up, so mistakes never reach users.
  */
 export const buildPacksRouter = (
@@ -40,6 +46,7 @@ export const buildPacksRouter = (
     for (const pack of definitions) {
         for (const [entityKey, entity] of Object.entries(pack.entities)) {
             const relations: Relations = {}
+            const foreignKeys: ForeignKey[] = []
             for (const [relationKey, relation] of Object.entries(entity.relations ?? {})) {
                 const target = services.get(`${relation.pack ?? pack.key}/${relation.entity}`)
                 if (!target) {
@@ -51,6 +58,15 @@ export const buildPacksRouter = (
                 relations[relationKey] = relation.foreignKey
                     ? { data: target.getAllData(), foreignKey: relation.foreignKey }
                     : target.getAllData()
+
+                // One-to-one relations make `${relationKey}Id` a foreign key that writes must respect
+                if (!relation.foreignKey) {
+                    foreignKeys.push({
+                        field: `${relationKey}Id`,
+                        entityName: relation.entity,
+                        ids: new Set(target.getAllData().map(r => String(r.id)))
+                    })
+                }
             }
 
             const path = entityPath(pack, entityKey)
@@ -58,10 +74,15 @@ export const buildPacksRouter = (
             paths.add(path)
 
             const service = services.get(`${pack.key}/${entityKey}`)!
-            router.use(path, createBaseRoute(
-                createGetAllController(service, relations),
-                createGetByIdController(service, relations, entityKey) as RequestHandler
-            ))
+            const writes = createWriteControllers(new WriteService(service.getAllData(), entityKey, foreignKeys))
+            router.use(path, createBaseRoute({
+                getAll: createGetAllController(service, relations),
+                getById: createGetByIdController(service, relations, entityKey) as RequestHandler,
+                create: writes.create as RequestHandler,
+                replace: writes.replace as RequestHandler,
+                update: writes.update as RequestHandler,
+                remove: writes.remove as RequestHandler
+            }))
         }
     }
 

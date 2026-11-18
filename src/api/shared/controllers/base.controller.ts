@@ -1,6 +1,7 @@
 // src/shared/controllers/base.controller.ts
 import { Request, Response, NextFunction } from "express"
 import { BaseService } from "../services/base.service"
+import { WriteService, WriteResult } from "../services/write.service"
 import { Relations } from "../utils/include"
 import { delay } from "../utils/delay"
 import { simulateError } from "../utils/errorSimulation"
@@ -63,5 +64,41 @@ export const createGetByIdController = <T extends Record<string, any>>(
         } catch (err) {
             next(err)
         }
+    }
+}
+
+const sendWriteResult = (res: Response, result: WriteResult, successStatus = 200) => {
+    if (!result.ok) {
+        const { status, message, errors } = result
+        res.status(status).json({ success: false, message, ...(errors ? { errors } : {}) })
+        return
+    }
+    res.status(successStatus).json({ success: true, data: result.data })
+}
+
+/**
+ * Fake write controllers (POST / PUT / PATCH / DELETE). They validate and answer like a real API,
+ * but nothing is stored. All support the simulation params.
+ */
+export const createWriteControllers = (writes: WriteService) => {
+    const handle = (run: (req: Request<{ id: string }>, res: Response) => void) =>
+        async (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
+            try {
+                await simulate(req.query)
+                run(req, res)
+            } catch (err) {
+                next(err)
+            }
+        }
+
+    return {
+        create: handle((req, res) => {
+            const result = writes.create(req.body)
+            if (result.ok) res.location(`${req.baseUrl}/${encodeURIComponent(String(result.data.id))}`)
+            sendWriteResult(res, result, 201)
+        }),
+        replace: handle((req, res) => sendWriteResult(res, writes.replace(req.params.id, req.body))),
+        update: handle((req, res) => sendWriteResult(res, writes.update(req.params.id, req.body))),
+        remove: handle((req, res) => sendWriteResult(res, writes.remove(req.params.id)))
     }
 }

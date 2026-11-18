@@ -24,6 +24,13 @@ describe("pack definitions", () => {
             expect(one.status).toBe(200)
             expect(String(one.body.data.id)).toBe(entity.examples.id)
 
+            // The inferred write schema accepts the entity's own records
+            const { id, createdAt, ...record } = one.body.data
+            expect((await request(app).post(`/api/v1${path}`).send(record)).status).toBe(201)
+            expect((await request(app).put(`/api/v1${path}/${id}`).send(record)).status).toBe(200)
+            expect((await request(app).patch(`/api/v1${path}/${id}`).send({})).status).toBe(200)
+            expect((await request(app).delete(`/api/v1${path}/${id}`)).status).toBe(200)
+
             // Every declared relation resolves on at least one record
             for (const relationKey of Object.keys(entity.relations ?? {})) {
                 const inc = await request(app).get(`/api/v1${path}?include=${relationKey}&limit=100`)

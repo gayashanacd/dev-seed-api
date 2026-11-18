@@ -75,6 +75,34 @@ const Docs = () => {
           parameters below.
         </p>
 
+        <h3 className="text-xl font-semibold mb-2">Write endpoints (simulated)</h3>
+        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono mb-2 space-y-1">
+          <div>POST {config.endpoint}</div>
+          <div>PUT {config.endpoint}/:id</div>
+          <div>PATCH {config.endpoint}/:id</div>
+          <div>DELETE {config.endpoint}/:id</div>
+        </div>
+        <ul className="list-disc pl-6 text-gray-600 dark:text-gray-300 mb-4 space-y-1">
+          <li>
+            Writes behave like a real API but <strong>nothing is saved</strong>: the response shows the
+            record the write would produce, and later reads are unchanged.
+          </li>
+          <li>
+            Send JSON (<code>Content-Type: application/json</code>) with the same fields as a record.
+            <code> id</code> and <code>createdAt</code> are set by the server and ignored if you send them.
+          </li>
+          <li>
+            <code>POST</code> returns <code>201</code>. <code>PUT</code> needs a full record,{" "}
+            <code>PATCH</code> only the fields to change (nested objects are merged), and{" "}
+            <code>DELETE</code> returns the deleted record.
+          </li>
+          <li>
+            Invalid bodies return <code>422</code> with an <code>errors</code> list (missing or unknown
+            fields, wrong types, ids that point at missing records). An unknown id returns <code>404</code>.
+            The simulation parameters work on writes too.
+          </li>
+        </ul>
+
         {/* Query Parameters */}
         <h3 className="text-xl font-semibold mb-2">Query Parameters</h3>
         <div className="overflow-x-auto">
@@ -157,6 +185,21 @@ const Docs = () => {
               <CodeBlock code={`GET ${config.endpoint}/${config.exampleId}?include=${config.includeKeys.join(",")}`} />
             </div>
           )}
+
+          <div>
+            <p className="font-semibold">Create (simulated)</p>
+            <CodeBlock code={`POST ${config.endpoint}\nContent-Type: application/json\n\n{ ...fields of a ${config.endpointName} record }`} />
+          </div>
+
+          <div>
+            <p className="font-semibold">Update fields (simulated)</p>
+            <CodeBlock code={`PATCH ${config.endpoint}/${config.exampleId}\nContent-Type: application/json\n\n{ ...only the fields to change }`} />
+          </div>
+
+          <div>
+            <p className="font-semibold">Delete (simulated)</p>
+            <CodeBlock code={`DELETE ${config.endpoint}/${config.exampleId}`} />
+          </div>
 
           {config.fields.some(f => f.name === "delay") && (
             <div>
