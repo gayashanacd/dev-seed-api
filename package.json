@@ -23,6 +23,7 @@
     "build": "tsc && npm run build:frontend",
     "dev": "nodemon --watch src --ext ts,tsx --exec ts-node src/server.ts",
     "start": "node dist/server.js",
+    "generate:data": "ts-node -P scripts/tsconfig.json scripts/generate-data.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   }

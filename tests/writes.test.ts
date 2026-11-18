@@ -5,6 +5,10 @@ import { nextId } from "../src/api/shared/services/write.service"
 
 const api = (path: string) => `/api/v1${path}`
 
+/** The id the next POST to an entity will get */
+const expectedNextId = async (path: string) =>
+    nextId((await request(app).get(api(`${path}?limit=1000`))).body.data)
+
 const product = { name: "Desk Lamp", price: 24.5, categoryId: "c1" }
 
 const user = {
@@ -18,12 +22,14 @@ const user = {
 
 describe("POST (create)", () => {
     it("returns 201 with the new record, the next id, createdAt and a Location header", async () => {
+        const id = await expectedNextId("/ecommerce/products")
+        expect(id).toMatch(/^p\d+$/)
         const res = await request(app).post(api("/ecommerce/products")).send(product)
         expect(res.status).toBe(201)
         expect(res.body.success).toBe(true)
-        expect(res.body.data).toMatchObject({ id: "p21", ...product })
+        expect(res.body.data).toMatchObject({ id, ...product })
         expect(res.body.data.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/)
-        expect(res.headers.location).toBe("/api/v1/ecommerce/products/p21")
+        expect(res.headers.location).toBe(`/api/v1/ecommerce/products/${id}`)
     })
 
     it("does not persist anything", async () => {
@@ -31,11 +37,11 @@ describe("POST (create)", () => {
         await request(app).post(api("/ecommerce/products")).send(product)
         const after = await request(app).get(api("/ecommerce/products"))
         expect(after.body.meta.total).toBe(before.body.meta.total)
-        expect((await request(app).get(api("/ecommerce/products/p21"))).status).toBe(404)
+        expect((await request(app).get(api(`/ecommerce/products/${await expectedNextId("/ecommerce/products")}`))).status).toBe(404)
     })
 
     it("continues numeric id sequences", async () => {
-        const all = await request(app).get(api("/ecommerce/reviews?limit=100"))
+        const all = await request(app).get(api("/ecommerce/reviews?limit=1000"))
         const max = Math.max(...all.body.data.map((r: any) => r.id))
         const res = await request(app).post(api("/ecommerce/reviews"))
             .send({ productId: "p1", userId: "u1", rating: 5, comment: "Great" })
@@ -47,7 +53,7 @@ describe("POST (create)", () => {
         const res = await request(app).post(api("/ecommerce/products"))
             .send({ ...product, id: "mine", createdAt: "1999-01-01T00:00:00Z" })
         expect(res.status).toBe(201)
-        expect(res.body.data.id).toBe("p21")
+        expect(res.body.data.id).toBe(await expectedNextId("/ecommerce/products"))
         expect(res.body.data.createdAt).not.toBe("1999-01-01T00:00:00Z")
     })
 

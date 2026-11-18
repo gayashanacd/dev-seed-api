@@ -10,5 +10,18 @@
     { "id": "cp9", "code": "GAMER15", "discount": 15, "validTill": "2026-10-01T23:59:59Z" },
     { "id": "cp10", "code": "HOME20", "discount": 20, "validTill": "2026-07-01T23:59:59Z" },
     { "id": "cp11", "code": "OFFICE10", "discount": 10, "validTill": "2026-12-01T23:59:59Z" },
-    { "id": "cp12", "code": "CLEARANCE35", "discount": 35, "validTill": "2026-05-01T23:59:59Z" }
+    { "id": "cp12", "code": "CLEARANCE35", "discount": 35, "validTill": "2026-05-01T23:59:59Z" },
+    { "id": "cp13", "code": "WINTER20", "discount": 20, "validTill": "2027-01-06T23:59:59Z" },
+    { "id": "cp14", "code": "MEMBER10", "discount": 10, "validTill": "2027-05-31T23:59:59Z" },
+    { "id": "cp15", "code": "STUDENT10", "discount": 10, "validTill": "2026-12-22T23:59:59Z" },
+    { "id": "cp16", "code": "STUDENT15", "discount": 15, "validTill": "2027-04-04T23:59:59Z" },
+    { "id": "cp17", "code": "WINTER10", "discount": 10, "validTill": "2027-03-21T23:59:59Z" },
+    { "id": "cp18", "code": "SNOW5", "discount": 5, "validTill": "2026-12-18T23:59:59Z" },
+    { "id": "cp19", "code": "MEMBER15", "discount": 15, "validTill": "2027-06-12T23:59:59Z" },
+    { "id": "cp20", "code": "THANKS30", "discount": 30, "validTill": "2027-03-17T23:59:59Z" },
+    { "id": "cp21", "code": "SPRINGSALE10", "discount": 10, "validTill": "2027-06-01T23:59:59Z" },
+    { "id": "cp22", "code": "SNOW25", "discount": 25, "validTill": "2027-05-14T23:59:59Z" },
+    { "id": "cp23", "code": "HOLIDAY30", "discount": 30, "validTill": "2027-01-26T23:59:59Z" },
+    { "id": "cp24", "code": "WEEKEND20", "discount": 20, "validTill": "2026-12-07T23:59:59Z" },
+    { "id": "cp25", "code": "THANKS10", "discount": 10, "validTill": "2027-02-21T23:59:59Z" }
 ]

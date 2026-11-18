@@ -19,6 +19,8 @@ npm start              # node dist/server.js (needs a prior build)
 npx tsc --noEmit       # type-check backend only
 npm test               # Vitest + Supertest suite in tests/ (runs against the Express app in-process)
 npx vitest run tests/query.test.ts -t "include"   # single file / test name filter
+npm run generate:data  # regenerate the seeded datasets (add `-- --check` to only verify; in PowerShell quote it: `'--' --check`)
+npx tsc --noEmit -p scripts   # type-check scripts/ (outside the backend's rootDir)
 
 # Frontend (src/frontend)
 npm run dev            # Vite dev server
@@ -26,7 +28,10 @@ npm run build          # tsc -b && vite build -> src/frontend/dist
 npm run lint           # eslint (frontend only; the backend has no linter)
 ```
 
-Tests cover the public query contract (`tests/query.test.ts`) and the rate limiter (`tests/rateLimit.test.ts`). The API has real users, so add or update tests whenever `/api/v1` behavior changes. The frontend has no tests.
+Tests cover the public query contract (`tests/query.test.ts`), writes (`tests/writes.test.ts`), pack wiring (`tests/packs.test.ts`), data integrity (`tests/data.test.ts`) and the rate limiter (`tests/rateLimit.test.ts`). The API has real users, so add or update tests whenever `/api/v1` behavior changes. Derive counts and ids from the API (`limit=1000`, `nextId`) instead of hardcoding them, so tests survive data regeneration. The frontend has no tests.
+
+### Seeded data (`scripts/generate-data.ts`)
+The datasets are generated and committed. **Don't hand-edit generated records**; change the generator and rerun `npm run generate:data`. The first `KEEP[entity]` records of each file are the original hand-written data that real users may rely on (`u1` John Doe, `p1` Wireless Mouse...). The generator never changes them: it slices them off, appends generated records with later dates and the next ids, and rewrites each file one record per line. Output is deterministic (a seeded PRNG for each entity, fixed "now" of 2026-11-01). `tests/data.test.ts` fails if the committed files differ from the generator's output, if a kept record changed (compared with commit `42144e7`, so it needs git history), or if integrity breaks: unique ids and emails, every foreign key resolves, order totals = Σ price × quantity, nothing dated before what it references, one subscription per org on the org's plan, invoices billed at the subscription price. To add an entity, add it to `FILES`/`KEEP`/`TARGET` and write a generator block in dependency order.
 
 The Vite config has **no proxy**. The frontend's API calls use relative `/api/v1/...` URLs, so the console only works when the Express server serves the built SPA. To try the frontend against a live API, build it (`npm run build:frontend`) and use the Express server, or add a `server.proxy` to `vite.config.ts`.
 
@@ -57,7 +62,7 @@ To add an entity: add the JSON file, an entry in the pack's `pack.ts`, and a lin
 ### Notes
 - The startup pack's `owner`/`assignee`/`user` relations point at `{ pack: "core", entity: "users" }`.
 - Tests: run Vitest from an uppercase `D:\` path on Windows. A lowercase `d:\` cwd makes Vitest load itself twice and every suite fails with "failed to find the runner".
-- JSON is imported directly (`resolveJsonModule`), so data is in memory and immutable per process. Edits to `data/*.json` need a restart (nodemon handles this in dev).
+- JSON is imported directly (`resolveJsonModule`), so data is in memory and immutable per process. Edits to `data/*.json` need a restart (nodemon handles this in dev). The files are generated (see Seeded data).
 
 ## Frontend (src/frontend)
 

@@ -33,7 +33,7 @@ describe("pack definitions", () => {
 
             // Every declared relation resolves on at least one record
             for (const relationKey of Object.keys(entity.relations ?? {})) {
-                const inc = await request(app).get(`/api/v1${path}?include=${relationKey}&limit=100`)
+                const inc = await request(app).get(`/api/v1${path}?include=${relationKey}&limit=1000`)
                 expect(inc.body.data.some((r: any) => r[relationKey] != null)).toBe(true)
             }
         }

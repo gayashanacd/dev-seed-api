@@ -30,7 +30,7 @@ describe("response shape", () => {
 
 describe("pagination", () => {
     it("slices by page and limit", async () => {
-        const all = await get("/users?limit=100")
+        const all = await get("/users?limit=1000")
         const res = await get("/users?page=2&limit=5")
         expect(res.body.data.map((u: any) => u.id))
             .toEqual(all.body.data.slice(5, 10).map((u: any) => u.id))
@@ -51,47 +51,48 @@ describe("pagination", () => {
 
 describe("filtering", () => {
     it("filters by exact top-level field", async () => {
-        const res = await get("/users?role=admin&limit=100")
+        const res = await get("/users?role=admin&limit=1000")
         expect(res.body.data.length).toBeGreaterThan(0)
         expect(res.body.data.every((u: any) => u.role === "admin")).toBe(true)
     })
 
     it("filters by nested field with dot notation", async () => {
-        const all = await get("/users?limit=100")
+        const all = await get("/users?limit=1000")
         const city = all.body.data[0].address.city
-        const res = await get(`/users?address.city=${encodeURIComponent(city)}&limit=100`)
+        const res = await get(`/users?address.city=${encodeURIComponent(city)}&limit=1000`)
         expect(res.body.data.length).toBeGreaterThan(0)
         expect(res.body.data.every((u: any) => u.address.city === city)).toBe(true)
     })
 
     it("matches numeric fields against string query values", async () => {
-        const res = await get("/ecommerce/reviews?rating=5&limit=100")
+        const res = await get("/ecommerce/reviews?rating=5&limit=1000")
         expect(res.body.data.length).toBeGreaterThan(0)
         expect(res.body.data.every((r: any) => r.rating === 5)).toBe(true)
     })
 
     it("does not treat control params as filters", async () => {
+        const all = await get("/users")
         const res = await get("/users?delay=1&errorRate=0&include=x&order=asc")
-        expect(res.body.meta.total).toBe(25)
+        expect(res.body.meta.total).toBe(all.body.meta.total)
     })
 
     it("applies minPrice/maxPrice as an inclusive range on products", async () => {
-        const res = await get("/ecommerce/products?minPrice=50&maxPrice=200&limit=100")
+        const res = await get("/ecommerce/products?minPrice=50&maxPrice=200&limit=1000")
         const prices = res.body.data.map((p: any) => p.price)
         expect(prices.length).toBeGreaterThan(0)
         expect(prices.every((p: number) => p >= 50 && p <= 200)).toBe(true)
     })
 
     it("ignores non-numeric range values", async () => {
-        const all = await get("/ecommerce/products?limit=100")
-        const res = await get("/ecommerce/products?minPrice=abc&limit=100")
+        const all = await get("/ecommerce/products?limit=1000")
+        const res = await get("/ecommerce/products?minPrice=abc&limit=1000")
         expect(res.body.meta.total).toBe(all.body.meta.total)
     })
 })
 
 describe("search", () => {
     it("matches users on name and email, case-insensitively", async () => {
-        const res = await get("/users?search=JOHN&limit=100")
+        const res = await get("/users?search=JOHN&limit=1000")
         expect(res.body.data.length).toBeGreaterThan(0)
         for (const u of res.body.data) {
             const haystack = `${u.name.first} ${u.name.last} ${u.email}`.toLowerCase()
@@ -100,12 +101,12 @@ describe("search", () => {
     })
 
     it("does not match users on fields outside searchFields", async () => {
-        const res = await get("/users?search=customer&limit=100")
+        const res = await get("/users?search=customer&limit=1000")
         expect(res.body.data).toEqual([])
     })
 
     it("searches all top-level fields by default", async () => {
-        const res = await get("/ecommerce/coupons?limit=100")
+        const res = await get("/ecommerce/coupons?limit=1000")
         const code = res.body.data[0].code
         const found = await get(`/ecommerce/coupons?search=${encodeURIComponent(code)}`)
         expect(found.body.data.map((c: any) => c.code)).toContain(code)
@@ -114,15 +115,15 @@ describe("search", () => {
 
 describe("sorting", () => {
     it("sorts ascending and descending", async () => {
-        const asc = await get("/ecommerce/products?sortBy=price&order=asc&limit=100")
-        const desc = await get("/ecommerce/products?sortBy=price&order=desc&limit=100")
+        const asc = await get("/ecommerce/products?sortBy=price&order=asc&limit=1000")
+        const desc = await get("/ecommerce/products?sortBy=price&order=desc&limit=1000")
         const ascPrices = asc.body.data.map((p: any) => p.price)
         expect(ascPrices).toEqual([...ascPrices].sort((a: number, b: number) => a - b))
         expect(desc.body.data.map((p: any) => p.price)).toEqual([...ascPrices].reverse())
     })
 
     it("sorts by nested field", async () => {
-        const res = await get("/users?sortBy=name.first&limit=100")
+        const res = await get("/users?sortBy=name.first&limit=1000")
         const names = res.body.data.map((u: any) => u.name.first)
         expect(names).toEqual([...names].sort())
     })
@@ -130,14 +131,14 @@ describe("sorting", () => {
 
 describe("include", () => {
     it("resolves one-to-one relations via <key>Id", async () => {
-        const res = await get("/ecommerce/products?include=category&limit=100")
+        const res = await get("/ecommerce/products?include=category&limit=1000")
         for (const p of res.body.data) {
             expect(p.category.id).toBe(p.categoryId)
         }
     })
 
     it("resolves one-to-many relations via foreign key", async () => {
-        const res = await get("/startup/organizations?include=projects,subscriptions,invoices&limit=100")
+        const res = await get("/startup/organizations?include=projects,subscriptions,invoices&limit=1000")
         const org1 = res.body.data.find((o: any) => o.id === "org1")
         expect(org1.projects.length).toBeGreaterThan(0)
         for (const o of res.body.data) {
@@ -149,11 +150,11 @@ describe("include", () => {
     })
 
     it("supports products -> reviews and projects -> tasks", async () => {
-        const products = await get("/ecommerce/products?include=reviews&limit=100")
+        const products = await get("/ecommerce/products?include=reviews&limit=1000")
         expect(products.body.data.every((p: any) =>
             p.reviews.every((r: any) => r.productId === p.id))).toBe(true)
 
-        const projects = await get("/startup/projects?include=tasks&limit=100")
+        const projects = await get("/startup/projects?include=tasks&limit=1000")
         expect(projects.body.data.some((p: any) => p.tasks.length > 0)).toBe(true)
     })
 
@@ -173,7 +174,7 @@ describe("get by id", () => {
     })
 
     it("returns the same record as the list endpoint", async () => {
-        const list = await get("/ecommerce/products?limit=100")
+        const list = await get("/ecommerce/products?limit=1000")
         const one = await get("/ecommerce/products/p2")
         expect(one.body.data).toEqual(list.body.data.find((p: any) => p.id === "p2"))
     })
