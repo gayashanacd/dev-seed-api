@@ -4,6 +4,17 @@ Hosting: Render (origin) behind Cloudflare (DNS/proxy). The API has active users
 
 Order matters: protect existing users → get found (SEO) → make packs cheap to add → ship packs one at a time → growth.
 
+## Now: get the first real users (do these in order)
+
+On 2026-11-18, Cloudflare showed 1.89k requests in 24 hours, but Render logged only 4 `api_request` lines. Nearly all traffic is crawlers and bots. The API itself is in good shape (relations, `GET /:id`, simulated writes, larger datasets). The bottleneck is discovery, not features, so do this before more packs or hosting changes.
+
+1. [ ] **Turn on Cloudflare Web Analytics** (free). It counts page views from real browsers, so bots are mostly excluded and real visitors become measurable. Enable it through the Cloudflare proxy, or add the script tag to `src/frontend/index.html`. *(manual + optional one-line change)*
+2. [ ] **Get listed and launch**: submit to [public-apis](https://github.com/public-apis/public-apis) and relevant awesome lists, write one launch post for r/webdev or r/reactjs, and one dev.to tutorial (e.g. "Mock an e-commerce backend for your React app in 5 minutes"). Lead with what JSONPlaceholder doesn't have: relations via `?include=`, simulated writes with realistic validation errors, and failure simulation. See *Content and links* below.
+3. [ ] **Add the Tally feedback link before the launch posts**, so the first visitors can say what they want. See *User feedback (Tally)* below.
+4. [ ] **Guide pages** for real searches ("fake e-commerce API", "JSONPlaceholder alternative with relations", "mock API for React", "test loading/error states"). They pay off over months as Google indexes them. See *Content and links* below.
+
+Track progress with Web Analytics visitors, `api_request` counts in Render logs, and Search Console clicks.
+
 ## Phase 1: Protect existing users
 
 - [x] **Rate limiting keyed by real client IP.** Traffic arrives via Cloudflare → Render, so without proxy handling every user can share one 200-req/15-min bucket. Key on `CF-Connecting-IP` and set `trust proxy`.
