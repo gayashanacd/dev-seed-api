@@ -21,13 +21,6 @@ export interface PageMeta {
     jsonLd?: Record<string, unknown>
 }
 
-// Short, search-friendly label for each domain (domain titles are written for the docs sidebar)
-const DOMAIN_LABEL: Record<string, string> = {
-    core: "User",
-    ecommerce: "E-Commerce",
-    startup: "SaaS"
-}
-
 const HOME_DESCRIPTION =
     "Free mock REST APIs with realistic users, e-commerce and SaaS data for frontend developers. " +
     "Pagination, filtering, sorting, relations and error simulation built in. No signup."
@@ -65,7 +58,7 @@ export const getPageMeta = (pathname: string): PageMeta => {
     const entity = match && domain ? domain.entities[match[2]] : undefined
     if (!match || !entity) return NOT_FOUND
 
-    const label = DOMAIN_LABEL[match[1]] ?? domain!.title
+    const label = domain!.label
     return {
         title: `${entity.title} API – Free Mock ${label} Data | ${SITE_NAME}`,
         description:

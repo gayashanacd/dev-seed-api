@@ -1,16 +1,6 @@
-import { Router } from "express"
+import { buildPacksRouter } from "./packs/router"
+import { packDefinitions } from "./packs/definitions"
+import { packData } from "./packs/data"
 
-import coreModule from "./core/core.module"
-import ecommerceRoutes from "./packs/ecommerce/routes/ecommerce.routes"
-import startupRoutes from "./packs/startup/routes/startup.routes"
-
-const router = Router()
-
-// Core system
-router.use("/", coreModule)
-
-// Domain packs
-router.use("/ecommerce", ecommerceRoutes)
-router.use("/startup", startupRoutes)
-
-export default router
+// Every route under /api/v1 is generated from the pack definitions (see packs/types.ts)
+export default buildPacksRouter(packDefinitions, packData)

@@ -42,7 +42,7 @@ Set this up early: answers about which pack people want next should decide the P
 
 ## Phase 2: Make packs cheap to add
 
-- [ ] **Single pack definition**: one config per pack (data, relations, search fields, range filters, docs text) that generates both the Express routes and the frontend docs entry, replacing today's four-place edit (services, controllers, routes, `domains.ts`).
+- [x] **Single pack definition**: one config per pack (data, relations, search fields, range filters, docs text) that generates both the Express routes and the frontend docs entry, replacing today's four-place edit (services, controllers, routes, `domains.ts`).
 - [ ] **`GET /:id`** on every entity, with `include` support.
 - [ ] **Fake write endpoints**: `POST`/`PUT`/`PATCH`/`DELETE` that validate and echo a realistic response without persisting (JSONPlaceholder-style).
 - [ ] **Seeded data generator**: a script that produces larger, deterministic datasets with consistent foreign keys, committed as JSON. Current sets are small (e.g. 2 invoices, 3 tasks).
