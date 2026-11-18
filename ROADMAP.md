@@ -57,8 +57,8 @@ Set this up early: answers about which pack people want next should decide the P
 - [x] **`GET /:id`** on every entity, with `include` support.
 - [x] **Fake write endpoints**: `POST`/`PUT`/`PATCH`/`DELETE` that validate and echo a realistic response without persisting (JSONPlaceholder-style).
 - [x] **Seeded data generator**: a script that produces larger, deterministic datasets with consistent foreign keys, committed as JSON. Current sets are small (e.g. 2 invoices, 3 tasks). *(`npm run generate:data`; the hand-written records are kept unchanged.)*
-- [ ] **Frontend on Cloudflare Pages (free)**: the docs site loads instantly from the edge, independent of Render's state; the API stays on Render.
-- [ ] *(Later, if usage grows)* **Evaluate moving the API to Cloudflare Workers** (free tier, no sleeping). The data is static JSON, so it fits well. Do this after the single-pack-definition refactor.
+- [ ] *(Deferred 2026-11-18: very few real users yet; revisit once traffic grows, ideally just before launch posts)* **Frontend on Cloudflare Pages (free)**: the docs site loads instantly from the edge, independent of Render's state; the API stays on Render. Keep `www.devseedapi.com/api/v1/...` working by forwarding `/api/*` to Render, and move Express's redirects/cache headers to `_redirects`/`_headers`. Check whether Cloudflare now recommends Workers static assets over Pages.
+- [ ] *(Deferred 2026-11-18: revisit if usage grows)* **Evaluate moving the API to Cloudflare Workers** (free tier, no sleeping). The data is static JSON, so it fits well. Its prerequisite, the single pack definition, is done.
 
 ## Phase 3: New domain packs (one at a time, each released separately)
 
