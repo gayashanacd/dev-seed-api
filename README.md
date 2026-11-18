@@ -22,6 +22,7 @@ Unlike generic mock APIs, DevSeed API offers:
 
 - **Realistic data models** designed for real-world applications  
 - **Relational data support** using `?include` queries  
+- **Simulated writes** (`POST`, `PUT`, `PATCH`, `DELETE`) with realistic responses and validation errors  
 - **Built-in API behavior simulation** (latency, errors, random failures)  
 - **Domain-specific datasets** (E-Commerce, SaaS, Users)  
 
@@ -34,6 +35,8 @@ Perfect for building production-like frontend experiences without a backend.
 - Domain-based datasets (Users, E-Commerce, SaaS)  
 - Relational data support (`?include=reviews,category`)  
 - Filtering, sorting, search, and pagination  
+- Get one record by id (`GET /api/v1/users/u1`)  
+- Simulated writes: `POST`, `PUT`, `PATCH`, `DELETE` validate the body and return the record the write would produce (`201`, `422` with field errors, `404`), without saving anything  
 - API simulation:
   - `delay` → simulate network latency  
   - `error` → force HTTP errors  
@@ -45,13 +48,15 @@ Perfect for building production-like frontend experiences without a backend.
 ---
 
 ## Example
-GET /api/v1/users
+GET /api/v1/users?limit=1
 
 Example Response:
 
 ```json
-[
-  {
+{
+  "success": true,
+  "data": [
+    {
       "id": "u1",
       "name": {
         "first": "John",
@@ -71,9 +76,22 @@ Example Response:
       "profile": {
         "avatar": "https://randomuser.me/api/portraits/men/1.jpg"
       }
-  }
-]
+    }
+  ],
+  "meta": { "total": 100, "page": 1, "limit": 1, "totalPages": 100 }
+}
 ```
+
+Simulated write:
+
+```http
+POST /api/v1/ecommerce/products
+Content-Type: application/json
+
+{ "name": "Desk Lamp", "price": 24.99, "categoryId": "c7" }
+```
+
+Returns `201 Created` with the new record (`id` and `createdAt` filled in). Invalid input returns `422` with an `errors` list. Nothing is saved.
 For full API reference and interactive testing:
 
 👉 https://www.devseedapi.com

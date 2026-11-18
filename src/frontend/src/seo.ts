@@ -23,7 +23,7 @@ export interface PageMeta {
 
 const HOME_DESCRIPTION =
     "Free mock REST APIs with realistic users, e-commerce and SaaS data for frontend developers. " +
-    "Pagination, filtering, sorting, relations and error simulation built in. No signup."
+    "Filtering, sorting, relations, simulated writes and error simulation built in. No signup."
 
 const HOME: PageMeta = {
     title: "DevSeed API – Free Realistic Mock APIs for Frontend Developers",
@@ -63,7 +63,7 @@ export const getPageMeta = (pathname: string): PageMeta => {
         title: `${entity.title} API – Free Mock ${label} Data | ${SITE_NAME}`,
         description:
             `Free fake ${entity.title.toLowerCase()} REST API for frontend developers. ${entity.description} ` +
-            "Pagination, filtering, sorting and error simulation. No signup.",
+            "Pagination, filtering, sorting, simulated writes and error simulation. No signup.",
         path
     }
 }

@@ -7,7 +7,7 @@ const Features = () => {
                     Why DevSeed API?
                 </h2>
 
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                 {/* Domain Based Data */}
                 <div className="border p-6 rounded shadow-sm">
@@ -37,10 +37,24 @@ const Features = () => {
                     Flexible Querying & Simulation
                     </h3>
                     <p className="text-gray-600 mb-2 dark:text-gray-300">
-                    APIs support <strong>pagination, search, filtering, and sorting</strong> to simulate real production APIs.
+                    APIs support <strong>pagination, search, filtering, sorting, and relations</strong> (<code>?include=category,reviews</code>) to simulate real production APIs.
                     </p>
                     <p className="text-gray-600 dark:text-gray-300">
                     <strong>Simulation Features:</strong> simulate slow responses (<code>delay</code>), force errors (<code>error</code>), or random failures (<code>errorRate</code>) to test your frontend against realistic scenarios.
+                    </p>
+                </div>
+
+                {/* Simulated Writes */}
+                <div className="border p-6 rounded shadow-sm">
+                    <h3 className="font-semibold text-lg mb-2">
+                    Simulated Writes (Full CRUD)
+                    </h3>
+                    <p className="text-gray-600 mb-2 dark:text-gray-300">
+                    Send <strong>POST, PUT, PATCH, and DELETE</strong> requests and get realistic responses:
+                    new ids, <code>201 Created</code>, and <code>422</code> validation errors for bad input.
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-300">
+                    Build and test forms end to end. Nothing is saved, so the data stays the same for everyone.
                     </p>
                 </div>
 

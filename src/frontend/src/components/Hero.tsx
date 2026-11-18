@@ -13,11 +13,11 @@ const Hero = () => {
                     </h1>
 
                     <p className="text-xl text-gray-700 mb-4 dark:text-gray-300">
-                        Prebuilt, domain-specific datasets for users, products, and e-commerce to accelerate development and testing.
+                        Prebuilt, domain-specific datasets for users, e-commerce, and SaaS apps to accelerate development and testing.
                     </p>
 
                     <p className="text-gray-600 max-w-2xl mx-auto mb-8 dark:text-gray-400">
-                        Why choose DevSeed API? Unlike generic mock APIs, we provide <strong>realistic data structures</strong>, built-in <strong>filtering, sorting, and pagination</strong>, so you can test your frontend exactly like production.
+                        Why choose DevSeed API? Unlike generic mock APIs, we provide <strong>realistic, related data</strong>, built-in <strong>filtering, sorting, and pagination</strong>, and <strong>simulated writes</strong> (<code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>) with real validation errors, so you can test your frontend exactly like production.
                     </p>
                 
                     <div className="space-x-4">
