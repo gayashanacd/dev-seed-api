@@ -2,9 +2,11 @@ import { useParams } from "react-router-dom"
 import { domainConfig, type EntityConfig } from "../config/domains"
 import CodeBlock from "../components/CodeBlock"
 import ApiConsole from "../components/ApiConsole"
+import { useFeedbackUrl } from "../feedback"
 
 const Docs = () => {
   const { domain, entity } = useParams()
+  const feedbackUrl = useFeedbackUrl()
 
   const selectedDomain = domain ? domainConfig[domain] : undefined
   const config: EntityConfig | undefined =
@@ -229,6 +231,21 @@ const Docs = () => {
       <section id="try-api">
         <h2 className="text-2xl font-semibold mb-4">Try the API</h2>
         <ApiConsole endpoint={config.endpoint} exampleId={config.exampleId} />
+      </section>
+
+      {/* Feedback */}
+      <section className="border-t pt-6 dark:border-gray-700 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <p className="text-gray-600 dark:text-gray-300">
+          Missing a field, filter or endpoint? Was this page helpful?
+        </p>
+        <a
+          href={feedbackUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block border border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-800 transition"
+        >
+          Request an endpoint / give feedback
+        </a>
       </section>
 
     </main>

@@ -1,10 +1,12 @@
 import { Link, useLocation } from "react-router-dom"
 import { Github, Sun, Moon } from "lucide-react"
 import { useState, useEffect } from "react"
+import { useFeedbackUrl } from "../feedback"
 
 const Header = () => {
   const location = useLocation()
   const [dark, setDark] = useState(false)
+  const feedbackUrl = useFeedbackUrl()
 
   const linkStyle = (path: string) =>
     `px-3 hover:underline ${
@@ -50,6 +52,15 @@ const Header = () => {
           <Link to="/docs/core/users" className={linkStyle("/docs/core/users")}>
             Docs
           </Link>
+
+          <a
+            href={feedbackUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 hover:underline"
+          >
+            Feedback
+          </a>
 
           {/* GitHub stars */}
           <a

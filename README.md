@@ -14,6 +14,8 @@ Explore and test the API instantly:
 
 Example: GET https://www.devseedapi.com/api/v1/ecommerce/products?limit=5
 
+**Missing something? [Tell us](https://tally.so/r/Z9OMa0?page=README)**: which data pack you want next, a field or filter you need, or anything that's annoying. It takes under a minute.
+
 ---
 
 ## Why DevSeed API?
