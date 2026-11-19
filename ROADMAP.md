@@ -8,9 +8,9 @@ Order matters: protect existing users → get found (SEO) → make packs cheap t
 
 On 2026-11-18, Cloudflare showed 1.89k requests in 24 hours, but Render logged only 4 `api_request` lines. Nearly all traffic is crawlers and bots. The API itself is in good shape (relations, `GET /:id`, simulated writes, larger datasets). The bottleneck is discovery, not features, so do this before more packs or hosting changes.
 
-1. [ ] **Turn on Cloudflare Web Analytics** (free). It counts page views from real browsers, so bots are mostly excluded and real visitors become measurable. Enable it through the Cloudflare proxy, or add the script tag to `src/frontend/index.html`. *(manual + optional one-line change)*
-2. [ ] **Get listed and launch**: submit to [public-apis](https://github.com/public-apis/public-apis) and relevant awesome lists, write one launch post for r/webdev or r/reactjs, and one dev.to tutorial (e.g. "Mock an e-commerce backend for your React app in 5 minutes"). Lead with what JSONPlaceholder doesn't have: relations via `?include=`, simulated writes with realistic validation errors, and failure simulation. See *Content and links* below.
-3. [ ] **Add the Tally feedback link before the launch posts**, so the first visitors can say what they want. See *User feedback (Tally)* below.
+1. [x] **Turn on Cloudflare Web Analytics** (free). It counts page views from real browsers, so bots are mostly excluded and real visitors become measurable. *(Done 2026-11-19. Auto-injection never reached the HTML, probably because Render fronts custom domains with its own Cloudflare, so the manual snippet is in `src/frontend/index.html`.)*
+2. [ ] **Get listed and launch** *(in progress: public-apis PR [#9246](https://github.com/public-apis/public-apis/pull/9246) opened 2026-11-19; dev.to tutorial [published](https://dev.to/indika_gayashan_u/mock-an-e-commerce-backend-for-your-react-app-in-5-minutes-1e8c) 2026-11-19; Reddit waits about two weeks while the new account builds karma, since its posts get auto-removed; awesome lists still to do)*: submit to [public-apis](https://github.com/public-apis/public-apis) and relevant awesome lists, write one launch post for r/webdev or r/reactjs, and one dev.to tutorial (e.g. "Mock an e-commerce backend for your React app in 5 minutes"). Lead with what JSONPlaceholder doesn't have: relations via `?include=`, simulated writes with realistic validation errors, and failure simulation. See *Content and links* below.
+3. [x] **Add the Tally feedback link before the launch posts**, so the first visitors can say what they want. See *User feedback (Tally)* below.
 4. [ ] **Guide pages** for real searches ("fake e-commerce API", "JSONPlaceholder alternative with relations", "mock API for React", "test loading/error states"). They pay off over months as Google indexes them. See *Content and links* below.
 
 Track progress with Web Analytics visitors, `api_request` counts in Render logs, and Search Console clicks.
@@ -46,9 +46,9 @@ Track progress with Web Analytics visitors, `api_request` counts in Render logs,
 
 Set this up early: answers about which pack people want next should decide the Phase 3 order.
 
-- [ ] **Create a short Tally form** (free plan, about 5 questions, under a minute to fill in): what are you building with DevSeed, which pack you want next (Social Media / FinTech / EdTech / other), what's missing or annoying, how you found the site, and an optional email for follow-up. *(manual, tally.so)*
-- [ ] **Add feedback links to the site**: a "Feedback" link in the header or footer, a "Was this page helpful? / Request an endpoint" prompt on each docs page, and a link on the 404 page. Pass the current page as a Tally hidden field so answers show which page they came from. Open the form as a popup or link rather than embedding it in prerendered HTML, so SEO and page speed aren't affected.
-- [ ] **Mention it in the README** and in API docs ("Missing something? Tell us").
+- [x] **Create a short Tally form** (https://tally.so/r/Z9OMa0) (free plan, about 5 questions, under a minute to fill in): what are you building with DevSeed, which pack you want next (Social Media / FinTech / EdTech / other), what's missing or annoying, how you found the site, and an optional email for follow-up. *(manual, tally.so)*
+- [x] **Add feedback links to the site**: a "Feedback" link in the header or footer, a "Was this page helpful? / Request an endpoint" prompt on each docs page, and a link on the 404 page. Pass the current page as a Tally hidden field so answers show which page they came from. Open the form as a popup or link rather than embedding it in prerendered HTML, so SEO and page speed aren't affected.
+- [x] **Mention it in the README** and in API docs ("Missing something? Tell us").
 - [ ] **Review responses monthly** and feed them into this roadmap.
 
 ## Phase 2: Make packs cheap to add

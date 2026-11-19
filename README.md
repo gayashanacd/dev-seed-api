@@ -14,6 +14,8 @@ Explore and test the API instantly:
 
 Example: GET https://www.devseedapi.com/api/v1/ecommerce/products?limit=5
 
+📘 Tutorial: [Mock an e-commerce backend for your React app in 5 minutes](https://dev.to/indika_gayashan_u/mock-an-e-commerce-backend-for-your-react-app-in-5-minutes-1e8c) (search, pagination, `include`, validation errors and loading/error states).
+
 **Missing something? [Tell us](https://tally.so/r/Z9OMa0?page=README)**: which data pack you want next, a field or filter you need, or anything that's annoying. It takes under a minute.
 
 ---

@@ -36,6 +36,18 @@ const Hero = () => {
                         </Link>
                     </div>
 
+                    <p className="mt-8 text-gray-600 dark:text-gray-400">
+                        New here?{" "}
+                        <a
+                            href="https://dev.to/indika_gayashan_u/mock-an-e-commerce-backend-for-your-react-app-in-5-minutes-1e8c"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 dark:text-blue-400 underline"
+                        >
+                            Mock an e-commerce backend for your React app in 5 minutes
+                        </a>
+                    </p>
+
                 </div>
             </section>
         </>
